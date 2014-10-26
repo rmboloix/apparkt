@@ -140,7 +140,8 @@ form.login-form{
         width: 28%;
         border: none;
         height: 26px;
-        padding: 0 24px;
+        /*padding: 0 24px;*/
+        text-align:center;
         color: white;
         &:hover{
             background: @colorGrisOscuro;
@@ -153,6 +154,41 @@ form.login-form{
         border:none;
         height:26px;
     }
+}
+
+form#client-form{
+    table{
+        border-spacing: 3px;
+        border-collapse: separate;
+        width: 100%;
+        td{
+            p{
+                padding: 10px 0 0;
+            }
+        }
+    }
+    display: block;
+    font-family: @font-Web;
+    input[type="text"],input[type="password"]{
+        padding-left:4px;
+        width:100%;
+        border:none;
+        height:26px;
+        /*margin:4px 0;*/
+    }
+    input[type="submit"]{
+        background: cornflowerblue;
+        border: none;
+        height: 26px;
+        text-align:center;
+        color: white;
+        float:right;
+        &:hover{
+            background: @colorGrisOscuro;
+            color: white;
+        }
+    }
+    
 }
 
 
@@ -173,4 +209,8 @@ footer{
         font-size: 10px;
         margin:0;
     }
+}
+
+.clearer{
+    clear:both;
 }

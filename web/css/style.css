@@ -142,7 +142,9 @@ form.login-form input[type="submit"] {
   width: 28%;
   border: none;
   height: 26px;
-  padding: 0 24px;
+  /*padding: 0 24px;*/
+
+  text-align: center;
   color: white;
 }
 form.login-form input[type="submit"]:hover {
@@ -155,6 +157,39 @@ form.login-form input[type="password"] {
   padding-left: 4px;
   border: none;
   height: 26px;
+}
+form#client-form {
+  display: block;
+  font-family: 'Expletus Sans', cursive;
+}
+form#client-form table {
+  border-spacing: 3px;
+  border-collapse: separate;
+  width: 100%;
+}
+form#client-form table td p {
+  padding: 10px 0 0;
+}
+form#client-form input[type="text"],
+form#client-form input[type="password"] {
+  padding-left: 4px;
+  width: 100%;
+  border: none;
+  height: 26px;
+  /*margin:4px 0;*/
+
+}
+form#client-form input[type="submit"] {
+  background: cornflowerblue;
+  border: none;
+  height: 26px;
+  text-align: center;
+  color: white;
+  float: right;
+}
+form#client-form input[type="submit"]:hover {
+  background: #333333;
+  color: white;
 }
 /*
     footer
@@ -171,4 +206,7 @@ footer p {
   text-align: center;
   font-size: 10px;
   margin: 0;
+}
+.clearer {
+  clear: both;
 }
