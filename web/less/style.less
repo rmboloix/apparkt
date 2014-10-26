@@ -163,8 +163,12 @@ form#client-form{
         width: 100%;
         td{
             p{
-                padding: 10px 0 0;
+                padding: 22px 0 0;
             }
+            
+        }
+        p.dotted{
+            border-bottom: 1px dotted gray;
         }
     }
     display: block;
@@ -178,6 +182,7 @@ form#client-form{
     }
     input[type="submit"]{
         background: cornflowerblue;
+        margin-top: 20px;
         border: none;
         height: 26px;
         text-align:center;
@@ -188,7 +193,10 @@ form#client-form{
             color: white;
         }
     }
-    
+    input[type="checkbox"]{
+        position: relative;
+        top: 3px;
+    }
 }
 
 

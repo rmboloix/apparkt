@@ -18,10 +18,11 @@
                 <table>
                     <tr >
                         <td colspan="3"> 
-                            <p>Dades d'Usuari</p>
+                            <p  class="dotted">Dades d'Usuari</p>
                         </td>
                     </tr>
                     <tr>
+                        
                         <td>
                             <input name="usuari" type="text" class="validate[required]" placeholder="Usuari">
                         </td>
@@ -29,12 +30,12 @@
                             <input name="contrasenya" type="password" class="validate[required]" placeholder="Contrasenya"/>
                         </td>
                         <td>
-                            <input name="contrasenya-2" type="password" class="validate[required]" placeholder="Repetir contrasenya"/>
+                            <input name="contrasenya-2" type="password" class="validate[required]" placeholder="Confirma contrasenya"/>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <p>Dades Personals</p>
+                            <p class="dotted">Dades Personals</p>
                         </td>
                     </tr>
                     <tr>
@@ -59,7 +60,7 @@
                         <td><input name="poblacio" type="text" class="validate[required]" placeholder="Població"/></td>
                     </tr>
                     <tr>
-                        <td colspan="3"><p>Dades de Facturació</p></td>
+                        <td colspan="3"><p class="dotted">Dades de Facturació</p></td>
                     </tr>
                     <tr>
                         <td>
@@ -71,7 +72,7 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td></td>
+                        <td><p>Acepto la <a href="#">Política de privadesa</a> <input type="checkbox" name="privadesa" class="validate[required]"/></p></td>
                         <td><input type="submit" value="Registrar-me"/></td>
                     </tr>
                 </table>

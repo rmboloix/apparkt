@@ -168,7 +168,10 @@ form#client-form table {
   width: 100%;
 }
 form#client-form table td p {
-  padding: 10px 0 0;
+  padding: 22px 0 0;
+}
+form#client-form table p.dotted {
+  border-bottom: 1px dotted gray;
 }
 form#client-form input[type="text"],
 form#client-form input[type="password"] {
@@ -181,6 +184,7 @@ form#client-form input[type="password"] {
 }
 form#client-form input[type="submit"] {
   background: cornflowerblue;
+  margin-top: 20px;
   border: none;
   height: 26px;
   text-align: center;
@@ -190,6 +194,10 @@ form#client-form input[type="submit"] {
 form#client-form input[type="submit"]:hover {
   background: #333333;
   color: white;
+}
+form#client-form input[type="checkbox"] {
+  position: relative;
+  top: 3px;
 }
 /*
     footer
