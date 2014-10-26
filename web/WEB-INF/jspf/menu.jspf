@@ -10,9 +10,9 @@
         </div>
         <nav>
             <ul>
-                <li class="active"><a href="#">Inici</a></li>
-                <li><a href="#">Clients</a></li>
-                <li><a href="#">Administradors</a></li>
+                <li class="active"><a href="index.jsp">Inici</a></li>
+                <li><a href="registre-client.jsp">Nou Client</a></li>
+                <li><a href="registre-administrador.jsp">Nou Administrador</a></li>
                 <li><a href="#">Com reservar</a></li>
                 <li><a href="#">Ajuda</a></li>
             </ul>
