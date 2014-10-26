@@ -3,7 +3,7 @@
 <header class="full-width">
     <div id="main-header">
         <div class="logo">
-            <a href="index.html">
+            <a href="index.jsp">
                 <h1>Apparkt</h1>
                 <img class="logo" alt="logo" src="img/p-logo.png"/>
             </a>
