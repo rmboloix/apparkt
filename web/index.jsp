@@ -8,7 +8,7 @@
 <%@taglib tagdir="/WEB-INF/tags/" prefix="t" %>
 <!DOCTYPE html>
 <html lang="es">
-    <t:head title="Apparkt | Reserva el teu pàrquing"/>
+    <t:head title="Apparkt | Reserva ara el teu pàrquing"/>
     <!-- Apparkt | Reserva el teu pàrquing -->
     <%@include file="WEB-INF/jspf/menu.jspf" %>
     <article id="main-article" class="row">
