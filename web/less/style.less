@@ -156,6 +156,8 @@ form.login-form{
     }
 }
 
+
+
 form#client-form{
     table{
         border-spacing: 3px;
@@ -165,10 +167,18 @@ form#client-form{
             p{
                 padding: 22px 0 0;
             }
-            
+            p.dades{
+              border-bottom:4px solid grey;  
+            }
+            p.cotxe{
+              border-bottom:4px solid grey;  
+            }
+            p.facturacio{
+              border-bottom:4px solid grey;  
+            }
         }
-        p.dotted{
-            border-bottom: 1px dotted gray;
+        td:nth-child(2){
+            width: 33.33%;
         }
     }
     display: block;
@@ -176,9 +186,19 @@ form#client-form{
     input[type="text"],input[type="password"]{
         padding-left:4px;
         width:100%;
-        border:none;
-        height:26px;
+        .formulari;
         /*margin:4px 0;*/
+    }
+    input[type="checkbox"]{
+        position: relative;
+        top: 3px;
+    }
+    select{
+        .formulari;
+        width: 100%;
+    }
+    .politica{
+        text-align:center;
     }
     input[type="submit"]{
         background: cornflowerblue;
@@ -192,10 +212,6 @@ form#client-form{
             background: @colorGrisOscuro;
             color: white;
         }
-    }
-    input[type="checkbox"]{
-        position: relative;
-        top: 3px;
     }
 }
 

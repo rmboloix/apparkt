@@ -1,8 +1,9 @@
-/* 
-
-    FORMULARI 
-
-*/
+/* FORMULARIS */
+/* FORMULARIS */
+.formulari {
+  height: 26px;
+  border: none;
+}
 html body a {
   color: #6183d3;
 }
@@ -170,17 +171,38 @@ form#client-form table {
 form#client-form table td p {
   padding: 22px 0 0;
 }
-form#client-form table p.dotted {
-  border-bottom: 1px dotted gray;
+form#client-form table td p.dades {
+  border-bottom: 4px solid grey;
+}
+form#client-form table td p.cotxe {
+  border-bottom: 4px solid grey;
+}
+form#client-form table td p.facturacio {
+  border-bottom: 4px solid grey;
+}
+form#client-form table td:nth-child(2) {
+  width: 33.33%;
 }
 form#client-form input[type="text"],
 form#client-form input[type="password"] {
   padding-left: 4px;
   width: 100%;
-  border: none;
   height: 26px;
+  border: none;
   /*margin:4px 0;*/
 
+}
+form#client-form input[type="checkbox"] {
+  position: relative;
+  top: 3px;
+}
+form#client-form select {
+  height: 26px;
+  border: none;
+  width: 100%;
+}
+form#client-form .politica {
+  text-align: center;
 }
 form#client-form input[type="submit"] {
   background: cornflowerblue;
@@ -194,10 +216,6 @@ form#client-form input[type="submit"] {
 form#client-form input[type="submit"]:hover {
   background: #333333;
   color: white;
-}
-form#client-form input[type="checkbox"] {
-  position: relative;
-  top: 3px;
 }
 /*
     footer

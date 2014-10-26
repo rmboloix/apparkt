@@ -5,9 +5,9 @@
  */
 
 $(document).ready(function(){
-    $("#login-form").validationEngine({
+    $("#login-form", "#client-form","#administrador-form").validationEngine({
         showArrow:false,
         promptPosition:"bottomLeft"
-        
     });
+
 });

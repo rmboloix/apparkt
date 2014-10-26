@@ -18,7 +18,7 @@
                 <table>
                     <tr >
                         <td colspan="3"> 
-                            <p  class="dotted">Dades d'Usuari</p>
+                            <p class="dades">Dades d'Usuari</p>
                         </td>
                     </tr>
                     <tr>
@@ -27,15 +27,15 @@
                             <input name="usuari" type="text" class="validate[required]" placeholder="Usuari">
                         </td>
                         <td>
-                            <input name="contrasenya" type="password" class="validate[required]" placeholder="Contrasenya"/>
+                            <input name="contrasenya" id="contrasenya" type="password" class="validate[required]" placeholder="Contrasenya"/>
                         </td>
                         <td>
-                            <input name="contrasenya-2" type="password" class="validate[required]" placeholder="Confirma contrasenya"/>
+                            <input name="contrasenya-2" type="password" class="validate[required,equals[contrasenya]]" placeholder="Confirma contrasenya"/>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <p class="dotted">Dades Personals</p>
+                            <p class="dades">Dades Personals</p>
                         </td>
                     </tr>
                     <tr>
@@ -46,33 +46,35 @@
                             <input name="cognom1" type="text" class="validate[required]" placeholder="Cognom 1"/>
                         </td>
                         <td>
-                            <input name="cognom2" type="text" class="validate[required]" placeholder="Cognom 2"/>
+                            <input name="cognom2" type="text" placeholder="Cognom 2"/>
                         </td>
                     </tr>
                     <tr>
-                        <td> <input name="email" type="text" class="validate[required]" placeholder="E-mail"/></td>
+                        <td> <input name="email" type="text" class="validate[required,custom[email]]" placeholder="E-mail"/></td>
                         <td><input name="dni" type="text" class="validate[required]" placeholder="DNI/NIF"/></td>
-                        <td><input name="telefon" type="text" class="validate[required]" placeholder="Telèfon"/></td>
+                        <td><input name="telefon" type="text" class="validate[required,custom[phone]]" placeholder="Telèfon"/></td>
                     </tr>
                     <tr>
                         <td><input name="domicili" type="text" class="validate[required]" placeholder="Domicili"/></td>
-                        <td><input name="codi-postal" type="text" class="validate[required]" placeholder="Codi Postal"/></td>
+                        <td><input name="codi-postal" type="text" class="validate[required,custom[number]]" placeholder="Codi Postal"/></td>
                         <td><input name="poblacio" type="text" class="validate[required]" placeholder="Població"/></td>
                     </tr>
                     <tr>
-                        <td colspan="3"><p class="dotted">Dades de Facturació</p></td>
+                        <td><p class="cotxe">Dades del cotxe</p></td>
+                        <td colspan="2"><p class="facturacio">Dades de Facturació</p></td>
                     </tr>
                     <tr>
-                        <td>
-                            <select id="selector-compte">
+                        <td><input name="matricula" type="text" class="validate[required]" placeholder="Matrícula"/></td>
+                        <td><select id="selector-compte">
                                 <option value="IBAN">Compte Bancari (IBAN)</option>
                                 <option value="VISA">VISA/MASTERCARD</option>
-                            </select></td>
-                        <td colspan="2"><input name="compte" type="text" class="validate[required]" placeholder="Número"/></td>
+                            </select>
+                        </td>
+                        <td><input name="compte" type="text" class="validate[required]" placeholder="Número"/></td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><p>Acepto la <a href="#">Política de privadesa</a> <input type="checkbox" name="privadesa" class="validate[required]"/></p></td>
+                        <td><p class="politica">Acepto la <a href="#">Política de privadesa</a> <input type="checkbox" name="privadesa" class="validate[required]"/></p></td>
                         <td><input type="submit" value="Registrar-me"/></td>
                     </tr>
                 </table>
