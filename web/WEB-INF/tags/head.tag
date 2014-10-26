@@ -5,10 +5,8 @@
 --%>
 
 <%@tag description="head" pageEncoding="UTF-8"%>
-
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="title"%>
-
 <%-- any content can be specified here e.g.: --%>
   <head>
     <meta charset="utf-8"/>

@@ -1,8 +1,12 @@
-<%-- any content can be specified here e.g.: --%>
+<%-- footer and legal notice --%>
+<%@page import="java.util.GregorianCalendar"%>
 <%@ page pageEncoding="UTF-8" %>
+<% 
+    int year = new GregorianCalendar().get(GregorianCalendar.YEAR);
+%>
     <footer class="row">
         <div class="col-md-12">
-            <p>Apparkt &copy; 2014 - <a href="#">Avís Legal</a> - <a href="#">Política de privadesa</a></p>
+            <p>Apparkt &copy; <%= year %> - <a href="#">Avís Legal</a> - <a href="#">Política de privadesa</a></p>
         </div>
     </footer>
     </div>
