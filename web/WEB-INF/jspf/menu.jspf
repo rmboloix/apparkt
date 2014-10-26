@@ -1,0 +1,21 @@
+<%-- header, logo and main menu --%>
+<%@ page pageEncoding="UTF-8" %>
+<header class="full-width">
+    <div id="main-header">
+        <div class="logo">
+            <a href="index.html">
+                <h1>Apparkt</h1>
+                <img class="logo" alt="logo" src="img/p-logo.png"/>
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li class="active"><a href="#">Inici</a></li>
+                <li><a href="#">Clients</a></li>
+                <li><a href="#">Administradors</a></li>
+                <li><a href="#">Com reservar</a></li>
+                <li><a href="#">Ajuda</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
