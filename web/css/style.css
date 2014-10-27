@@ -11,7 +11,7 @@ html body a:hover {
   color: inherit;
 }
 body {
-  background: url(../img/fondo-a-bn-azul.jpg) no-repeat;
+  background: url(../img/fondo-a-bn.jpg) no-repeat;
   background-size: cover;
   background-color: #ccc!important;
 }
@@ -125,6 +125,27 @@ header #main-header nav ul li.active a {
   font-family: 'Expletus Sans', cursive;
   font-size: 28px;
 }
+#main-article div.anunci {
+  height: 435px;
+  background: rgba(0, 128, 128, 0.9);
+  color: white;
+  font-family: 'Expletus Sans', cursive;
+  font-size: 13px;
+}
+#main-article div.anunci p {
+  padding: 6px;
+  text-align: center;
+}
+#main-article div.anunci p img {
+  display: block;
+  margin: 0 auto;
+  padding: 20px 0 20px 0;
+}
+#main-article div.anunci ul {
+  padding: 17px;
+  list-style-position: inside;
+  font-size: 12px;
+}
 /* 
 
     FORMULARI 
@@ -159,32 +180,41 @@ form.login-form input[type="password"] {
   border: none;
   height: 26px;
 }
-form#client-form {
+form#client-form,
+form#administrador-form {
   display: block;
   font-family: 'Expletus Sans', cursive;
 }
-form#client-form table {
+form#client-form table,
+form#administrador-form table {
   border-spacing: 3px;
   border-collapse: separate;
   width: 100%;
 }
-form#client-form table td p {
+form#client-form table td p,
+form#administrador-form table td p {
   padding: 22px 0 0;
 }
-form#client-form table td p.dades {
+form#client-form table td p.dades,
+form#administrador-form table td p.dades {
   border-bottom: 4px solid grey;
 }
-form#client-form table td p.cotxe {
+form#client-form table td p.cotxe,
+form#administrador-form table td p.cotxe {
   border-bottom: 4px solid grey;
 }
-form#client-form table td p.facturacio {
+form#client-form table td p.facturacio,
+form#administrador-form table td p.facturacio {
   border-bottom: 4px solid grey;
 }
-form#client-form table td:nth-child(2) {
+form#client-form table td:nth-child(2),
+form#administrador-form table td:nth-child(2) {
   width: 33.33%;
 }
 form#client-form input[type="text"],
-form#client-form input[type="password"] {
+form#administrador-form input[type="text"],
+form#client-form input[type="password"],
+form#administrador-form input[type="password"] {
   padding-left: 4px;
   width: 100%;
   height: 26px;
@@ -192,19 +222,23 @@ form#client-form input[type="password"] {
   /*margin:4px 0;*/
 
 }
-form#client-form input[type="checkbox"] {
+form#client-form input[type="checkbox"],
+form#administrador-form input[type="checkbox"] {
   position: relative;
   top: 3px;
 }
-form#client-form select {
+form#client-form select,
+form#administrador-form select {
   height: 26px;
   border: none;
   width: 100%;
 }
-form#client-form .politica {
+form#client-form .politica,
+form#administrador-form .politica {
   text-align: center;
 }
-form#client-form input[type="submit"] {
+form#client-form input[type="submit"],
+form#administrador-form input[type="submit"] {
   background: cornflowerblue;
   margin-top: 20px;
   border: none;
@@ -213,7 +247,8 @@ form#client-form input[type="submit"] {
   color: white;
   float: right;
 }
-form#client-form input[type="submit"]:hover {
+form#client-form input[type="submit"]:hover,
+form#administrador-form input[type="submit"]:hover {
   background: #333333;
   color: white;
 }

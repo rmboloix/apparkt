@@ -17,7 +17,7 @@ html body a{
 }
 
 body{
-    background: url(../img/fondo-a-bn-azul.jpg) no-repeat;
+    background: url(../img/fondo-a-bn.jpg) no-repeat;
     background-size: cover; 
     background-color: #ccc!important;
 }
@@ -123,6 +123,33 @@ header{
     font-size: 28px;
 }
 
+#main-article div.anunci{
+    height: 435px;
+    background: @colorVerdeTransparente;
+    color: white;
+    
+    font-family: @font-Web;
+    font-size: 13px;
+    p{
+        padding: 6px;
+        text-align: center;
+        img{
+            display: block;
+            margin: 0 auto;
+            padding: 20px 0 20px 0;
+        }
+    }
+    
+    ul{
+        padding: 17px;
+        list-style-position: inside;
+        font-size: 12px;
+    }
+    
+    
+    
+}
+
 /* 
 
     FORMULARI 
@@ -158,7 +185,7 @@ form.login-form{
 
 
 
-form#client-form{
+form#client-form,form#administrador-form{
     table{
         border-spacing: 3px;
         border-collapse: separate;

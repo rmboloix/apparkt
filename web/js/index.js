@@ -5,9 +5,16 @@
  */
 
 $(document).ready(function(){
-    $("#login-form", "#client-form","#administrador-form").validationEngine({
+    $("#login-form").validationEngine({
         showArrow:false,
         promptPosition:"bottomLeft"
     });
-
+    $("#client-form").validationEngine({
+        showArrow:false,
+        promptPosition:"bottomLeft"
+    });
+    $("#administrador-form").validationEngine({
+        showArrow:false,
+        promptPosition:"bottomLeft"
+    });
 });

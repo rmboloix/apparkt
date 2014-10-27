@@ -80,6 +80,17 @@
                 </table>
             </form>
         </div>
+        <div class="col-md-2">
+            <div class="anunci">
+                <p><img alt="client" src="img/client.png"/>Fes-te client i gaudeix ara de tots els avantatges que Apparkt pot oferir-te:</p>
+                <ul>
+                    <li>Reserva la plaça quan vulguis y com vulguis</li>
+                    <li>Modificar la teva reserva comodament</li>
+                    <li>Programar la teva reserva</li>
+                    <li>Pagament fàcil i cómode</li>
+                </ul>
+            </div>
+        </div>
     </article>
     <%@include file="WEB-INF/jspf/footer.jspf" %>
 </html>

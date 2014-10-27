@@ -11,9 +11,9 @@
     <t:head title="Registre d'administradors"/>
     <%@include file="WEB-INF/jspf/menu.jspf" %>
     <article id="main-article" class="row">
-        <div class="col-md-4 col-md-offset-4" id="cuadre-central">
+        <div class="col-md-6 col-md-offset-3" id="cuadre-central">
             <p class="benvingut">Nou Administrador</p>
-            <form id="client-form" method="post" action="login">
+            <form id="administrador-form" method="post" action="login">
                 <input name="type" type="hidden" value="nou-client"/>
                 <table>
                     <tr >
@@ -22,7 +22,6 @@
                         </td>
                     </tr>
                     <tr>
-                        
                         <td>
                             <input name="usuari" type="text" class="validate[required]" placeholder="Usuari">
                         </td>
@@ -58,19 +57,6 @@
                         <td><input name="domicili" type="text" class="validate[required]" placeholder="Domicili"/></td>
                         <td><input name="codi-postal" type="text" class="validate[required,custom[number]]" placeholder="Codi Postal"/></td>
                         <td><input name="poblacio" type="text" class="validate[required]" placeholder="Població"/></td>
-                    </tr>
-                    <tr>
-                        <td><p class="cotxe">Dades del cotxe</p></td>
-                        <td colspan="2"><p class="facturacio">Dades de Facturació</p></td>
-                    </tr>
-                    <tr>
-                        <td><input name="matricula" type="text" class="validate[required]" placeholder="Matrícula"/></td>
-                        <td><select id="selector-compte">
-                                <option value="IBAN">Compte Bancari (IBAN)</option>
-                                <option value="VISA">VISA/MASTERCARD</option>
-                            </select>
-                        </td>
-                        <td><input name="compte" type="text" class="validate[required]" placeholder="Número"/></td>
                     </tr>
                     <tr>
                         <td></td>
