@@ -1,7 +1,7 @@
 <%-- 
-    Document   : login-error
-    Created on : 26-oct-2014, 10:09:04
-    Author     : Rafael Mateo Boloix
+    Document   : success
+    Created on : 29-oct-2014, 19:44:35
+    Author     : Raf
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Login Error</h1>
+        <h1>Success</h1>
     </body>
 </html>
