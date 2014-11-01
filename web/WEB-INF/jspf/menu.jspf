@@ -3,16 +3,16 @@
 <header class="full-width">
     <div id="main-header">
         <div class="logo">
-            <a href="index.jsp">
+            <a href="${pageContext.request.contextPath}/index.jsp">
                 <h1>Apparkt</h1>
-                <img class="logo" alt="logo" src="img/p-logo.png"/>
+                <img class="logo" alt="logo" src="${pageContext.request.contextPath}/img/p-logo.png"/>
             </a>
         </div>
         <nav>
             <ul>
-                <li class="active"><a href="index.jsp">Inici</a></li>
-                <li><a href="registre-client.jsp">Nou Client</a></li>
-                <li><a href="registre-administrador.jsp">Nou Administrador</a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}/index.jsp">Inici</a></li>
+                <li><a href="${pageContext.request.contextPath}/registre-client.jsp">Nou Client</a></li>
+                <!--<li><a href="${pageContext.request.contextPath}/root/registre-administrador.jsp">Nou Administrador</a></li>-->
                 <li><a href="#">Com reservar</a></li>
                 <li><a href="#">Ajuda</a></li>
             </ul>

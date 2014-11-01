@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <t:head title="Registre d'administradors"/>
-    <%@include file="WEB-INF/jspf/menu.jspf" %>
+    <%@include file="../WEB-INF/jspf/menu.jspf" %>
     <article id="main-article" class="row">
         <div class="col-md-6 col-md-offset-3" id="cuadre-central">
             <p class="benvingut">Nou Administrador</p>
@@ -65,8 +65,11 @@
                     </tr>
                 </table>
             </form>
+            <%
+                request.getSession().invalidate();
+            %>
         </div>
     </article>
-    <%@include file="WEB-INF/jspf/footer.jspf" %>
+    <%@include file="../WEB-INF/jspf/footer.jspf" %>
 </html>
 

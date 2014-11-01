@@ -9,15 +9,15 @@
 <!DOCTYPE html>
 <html lang="es">
     <t:head title="Reserva ara el teu pàrquing"/>
-    <%@include file="WEB-INF/jspf/menu.jspf" %>
+    <%@include file="/WEB-INF/jspf/menu.jspf" %>
     <article id="main-article" class="row">
         <div class="col-md-4 col-md-offset-4" id="cuadre-central">
             <p class="benvingut">Benvingut a Apparkt! <br/>La teva web per a la reserva de pàrquing</p>
             <p>Inicia sessió</p>
-            <form id="login-form" class="login-form" method="post" action="login">
+            <form id="login-form" class="login-form" method="post" action="j_security_check">
                 <input name="type" type="hidden" value="login"/>
-                <input name="usuari" type="text" class="validate[required,minSize[8]]" placeholder="Usuari">
-                <input name="contrasenya" type="password" class="validate[required,minSize[8]]" placeholder="Contrasenya"/>
+                <input name="j_username" type="text" class="validate[required,minSize[8]]" placeholder="Usuari">
+                <input name="j_password" type="password" class="validate[required,minSize[8]]" placeholder="Contrasenya"/>
                 <input type="submit" value="Accedir"/>
             </form>
             <p>Ets nou y vols fer una reserva? Registra't <a href='registre-client.jsp' title="Registre">aquí</a><p>

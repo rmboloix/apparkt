@@ -6,7 +6,10 @@
 
 package util;
 
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
@@ -34,5 +37,16 @@ public class Util {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
         }
         return st.toString();
+    }
+    
+    public static String generateHash(String password){
+        return Hashing.sha256().hashString(password, Charsets.UTF_8).toString();
+    }
+    
+    public static void main (String[]args){
+        System.out.println(generateHash("rmboloix"));
+//        System.out.println(Hashing.md5().hashString("rafamateo", Charsets.UTF_8).toString());
+//        System.out.println(generateHash("2014admin"));
+//        System.out.println(generateHash("2014root"));
     }
 }
