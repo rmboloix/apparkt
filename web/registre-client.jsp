@@ -74,7 +74,7 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td><p class="politica">Acepto la <a href="#">Política de privadesa</a> <input type="checkbox" name="privadesa" class="validate[required]"/></p></td>
+                        <td><p class="politica">Acepto la <a target="_blank" href="${pageContext.request.contextPath}/privacitat.jsp">Política de privadesa</a> <input type="checkbox" name="privadesa" class="validate[required]"/></p></td>
                         <td><input type="submit" value="Registrar-me"/></td>
                     </tr>
                 </table>

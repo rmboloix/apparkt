@@ -1,6 +1,6 @@
 <%-- 
-    Document   : success
-    Created on : 29-oct-2014, 19:44:35
+    Document   : com-reservar
+    Created on : 02-nov-2014, 12:05:49
     Author     : Raf
 --%>
 
@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Success</h1>
+        <h1>Com reservar</h1>
     </body>
 </html>

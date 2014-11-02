@@ -1,11 +1,10 @@
 <%-- 
-    Document   : Client
-    Created on : 01-nov-2014, 11:50:05
-    Author     : Rafael Mateo Boloix
+    Document   : ajuda
+    Created on : 02-nov-2014, 12:06:06
+    Author     : Raf
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1></h1>
+        <h1>Ajuda</h1>
     </body>
 </html>
