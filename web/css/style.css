@@ -125,6 +125,9 @@ header #main-header nav ul li.active a {
   font-family: 'Expletus Sans', cursive;
   font-size: 28px;
 }
+#cuadre-central.login-error {
+  background: rgba(255, 0, 0, 0.8);
+}
 #main-article div.anunci {
   height: 435px;
   background: rgba(0, 128, 128, 0.9);

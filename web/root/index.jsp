@@ -4,6 +4,9 @@
     Author     : Raf
 --%>
 
+<%@page import="java.security.Principal"%>
+<%@page import="javax.security.auth.Subject"%>
+<%@page import="java.util.Enumeration"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,6 +16,11 @@
     </head>
     <body>
         <h1>Hello Root!</h1>
+        <% 
+            Principal p = request.getUserPrincipal();
+        %>
+        
+        <%=p.getName() %>
         
     </body>
 </html>

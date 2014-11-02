@@ -1,4 +1,5 @@
-<%-- header, logo and main menu --%>
+<%-- autor: Rafael Mateo Boloix 
+    header, logo and main menu --%>
 <%@ page pageEncoding="UTF-8" %>
 <header class="full-width">
     <div id="main-header">
