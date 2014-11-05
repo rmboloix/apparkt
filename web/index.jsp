@@ -4,9 +4,22 @@
     Author     : Rafael Mateo Boloix
 --%>
 
+<%@page import="model.UsuariBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="t" %>
 <!DOCTYPE html>
+<% 
+    //Si estem fent servir un rol, redireccionem cap a la pàgina d'inici del rol.
+    if(request.isUserInRole("ADMIN")){
+        response.sendRedirect(request.getContextPath()+"/admin/index.jsp");
+    }else if(request.isUserInRole("USER")){
+        response.sendRedirect(request.getContextPath()+"/client/index.jsp");
+    }else if(request.isUserInRole("ROOT")){
+        response.sendRedirect(request.getContextPath()+"/root/index.jsp");
+    }else{
+        System.out.println("GUEST");
+    }
+%>
 <html lang="es">
     <t:head title="Reserva ara el teu pàrquing"/>
     <%@include file="WEB-INF/jspf/menu.jspf" %>

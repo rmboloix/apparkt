@@ -1,22 +1,21 @@
 package servlets;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.UsuariBean;
 
 /**
  *
  * @author Rafael Mateo Boloix
  */
-public class LoginServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     * @author Rafael Mateo Boloix
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -24,22 +23,8 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String sUsuari = request.getParameter("usuari");
-        String sContrasenya = request.getParameter("contrasenya");
-        RequestDispatcher rd = null;
-        model.Authenticator authenticator = new model.Authenticator();
-        int res = authenticator.authenticate(sUsuari, sContrasenya);
-        System.out.println();
-        if(res == model.Authenticator.AUTHENTICATION_SUCCESS){
-            UsuariBean user = new UsuariBean();
-            user.setUserName(sUsuari);
-            user.setContrasenya(sContrasenya);
-            user.setIsValid(true);
-            rd = request.getRequestDispatcher("/success.jsp");
-        }else if(res == model.Authenticator.AUTHENTICATION_ERROR){
-            rd = request.getRequestDispatcher("/login-error.jsp?code=1");
-        }
-        rd.forward(request, response);
+            request.getSession().invalidate();
+            response.sendRedirect(request.getContextPath());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

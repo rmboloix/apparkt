@@ -1,6 +1,6 @@
 <%-- 
-    Document   : admin
-    Created on : 01-nov-2014, 11:49:49
+    Document   : logout
+    Created on : 03-nov-2014, 21:35:10
     Author     : Raf
 --%>
 
@@ -12,6 +12,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Administrador JSP</h1>
+        <% 
+            session.invalidate();
+            response.sendRedirect(request.getContextPath());
+        %>
     </body>
 </html>

@@ -1,5 +1,5 @@
 <%-- 
-    Document   : index root
+    Document   : registre
     Created on : 26-oct-2014, 13:08:41
     Author     : Rafael Mateo Boloix
 --%>
@@ -18,7 +18,7 @@
     <%@include file="../WEB-INF/jspf/menu.jspf" %>
     <article id="main-article" class="row">
         <div class="col-md-6 col-md-offset-3" id="cuadre-central">
-            <p class="benvingut">Les meves dades de Root</p>
+            <p class="benvingut">Les meves dades de Administrador</p>
             <%=usuari.getUserName() %>
             <%=usuari.getContrasenya() %>
             <a href="${pageContext.request.contextPath}/logout">Logout</a>

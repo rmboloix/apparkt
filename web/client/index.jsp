@@ -1,5 +1,5 @@
 <%-- 
-    Document   : index root
+    Document   : registre
     Created on : 26-oct-2014, 13:08:41
     Author     : Rafael Mateo Boloix
 --%>
@@ -9,7 +9,7 @@
 <%@taglib tagdir="/WEB-INF/tags/" prefix="t" %>
 <!DOCTYPE html>
 <% 
-    
+    System.out.println("Home Client");
     UsuariBean usuari = (UsuariBean)request.getSession().getAttribute("usuari");
 
 %>
@@ -18,7 +18,7 @@
     <%@include file="../WEB-INF/jspf/menu.jspf" %>
     <article id="main-article" class="row">
         <div class="col-md-6 col-md-offset-3" id="cuadre-central">
-            <p class="benvingut">Les meves dades de Root</p>
+            <p class="benvingut">Les meves dades de Client</p>
             <%=usuari.getUserName() %>
             <%=usuari.getContrasenya() %>
             <a href="${pageContext.request.contextPath}/logout">Logout</a>

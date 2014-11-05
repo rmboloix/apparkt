@@ -12,7 +12,7 @@
     <%@include file="WEB-INF/jspf/menu.jspf" %>
     <article id="main-article" class="row">
         <div class="col-md-4 col-md-offset-4 login-error" id="cuadre-central">
-            <p class="benvingut">Página incorrecta</p>
+            <p class="benvingut">Página incorrecta <%=request.getRequestURI() %></p>
         </div>
     </article>
     <%@include file="WEB-INF/jspf/footer.jspf" %>

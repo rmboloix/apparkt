@@ -4,8 +4,22 @@
     Author     : Rafael Mateo Boloix
 --%>
 
+<%@page import="model.UsuariBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="t" %>
+<% 
+    if(session.getAttribute("usuari") != null){
+        RequestDispatcher dispatcher = null;
+        if(request.isUserInRole("ADMIN")){
+            dispatcher = request.getRequestDispatcher("/admin/index.jsp");
+        }else if(request.isUserInRole("USER")){
+            dispatcher = request.getRequestDispatcher("/client/index.jsp");
+        }else if(request.isUserInRole("ROOT")){
+            dispatcher = request.getRequestDispatcher("/root/index.jsp");
+        }
+        dispatcher.forward(request, response);
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <t:head title="Login"/>
