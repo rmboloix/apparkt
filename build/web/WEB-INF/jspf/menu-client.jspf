@@ -1,0 +1,22 @@
+<%-- autor: Rafael Mateo Boloix 
+    Menu client --%>
+<%@ page pageEncoding="UTF-8" %>
+<header class="full-width">
+    <div id="main-header">
+        <div class="logo">
+            <a href="${pageContext.request.contextPath}">
+                <h1>Apparkt</h1>
+                <img class="logo" alt="logo" src="${pageContext.request.contextPath}/img/p-logo.png"/>
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li class="active"><a href="${pageContext.request.contextPath}">Inici</a></li>
+                <li><a href="${pageContext.request.contextPath}/registre-client.jsp">Les meves dades</a></li>
+                <!--<li><a href="${pageContext.request.contextPath}/root/registre-administrador.jsp">Nou Administrador</a></li>-->
+                <li><a href="${pageContext.request.contextPath}/com-reservar.jsp">Fer una reserva</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>

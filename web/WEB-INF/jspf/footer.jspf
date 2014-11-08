@@ -1,0 +1,18 @@
+<%-- footer and legal notice --%>
+<%@page import="java.util.GregorianCalendar"%>
+<%@ page pageEncoding="UTF-8" %>
+<% 
+    int year = new GregorianCalendar().get(GregorianCalendar.YEAR);
+%>
+    <footer class="row">
+        <div class="col-md-12">
+            <p>Apparkt &copy; <%= year %> - <a target="_blank" href="${pageContext.request.contextPath}/avis-legal.jsp">Avís Legal</a> - <a target="_blank" href="${pageContext.request.contextPath}/privacitat.jsp">Política de privadesa</a></p>
+        </div>
+    </footer>
+    </div>
+    <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery.validationEngine.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery.validationEngine-ca.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/js/index.js" type="text/javascript"></script>
+</body>
