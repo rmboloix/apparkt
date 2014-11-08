@@ -1,7 +1,16 @@
 package servlets;
 
+import Persistencia.GestorPersistencia;
+import Persistencia.GestorPersistenciaJPA;
+import apparkt.Contacte;
+import apparkt.Persona;
+import apparkt.Poblacio;
+import apparkt.Provincia;
+import apparkt.Usuari;
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,51 +33,52 @@ public class RegistreServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String usuari = request.getParameter("usuari");
-        String contrasenya = request.getParameter("contrasenya");
-        String nom = request.getParameter("nom");
-        String cognom1 = request.getParameter("cognom1");
-        String cognom2 = request.getParameter("cognom2"); //Opcional
-        String email = request.getParameter("email");
-        String telefon = request.getParameter("telefon");
-        String dni = request.getParameter("dni");
-        String domicili = request.getParameter("domicili");
-        String codiPostal = request.getParameter("codi-postal");
-        String poblacio = request.getParameter("poblacio");
-        String matricula = request.getParameter("matricula");
-        String tipusCompte = request.getParameter("tipus-compte");
-        String compte = request.getParameter("compte");
-        
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
-            out.println("<ul>");
-            out.println("<li>"+usuari+"</li>");
-            out.println("<li>"+contrasenya+"</li>");
-            out.println("<li>"+nom+"</li>");
-            out.println("<li>"+cognom1+"</li>");
-            out.println("<li>"+cognom2+"</li>");
-            out.println("<li>"+email+"</li>");
-            out.println("<li>"+telefon+"</li>");
-            out.println("<li>"+dni+"</li>");
-            out.println("<li>"+domicili+"</li>");
-            out.println("<li>"+codiPostal+"</li>");
-            out.println("<li>"+poblacio+"</li>");
-            out.println("<li>"+matricula+"</li>");
-            out.println("<li>"+tipusCompte+"</li>");
-            out.println("<li>"+compte+"</li>");
-            out.println("</ul>");
-            out.println("</body>");
-            out.println("</html>");
+        try{
+            GestorPersistencia db = new GestorPersistenciaJPA("UnitatDePersistenciaAmbJpa");
+            db.iniciar();
+            db.obrir();
+            
+            Usuari user = db.obtenirUsuariPerNomUsuari(request.getParameter("usuari"));
+            if (user==null) {
+                System.out.println("ok, la persona no existei!");
+                Usuari u = new Usuari();
+                u.setDni(request.getParameter("dni"));
+                u.setNom(request.getParameter("nom"));
+                u.setCognom1(request.getParameter("cognom1"));
+                u.setCognom2(request.getParameter("cognom2"));
+                u.setNomUsuari(request.getParameter("usuari"));
+                u.setPassword(util.Util.generateSHA256SecurePassword(request.getParameter("contrasenya")));
+                u.setDadesFacturacio(request.getParameter("compte"));
+                u.setMatricula(request.getParameter("matricula"));
+
+
+                Provincia p = new Provincia();
+                p.setNom("Barcelona");
+                Poblacio pobl = new Poblacio();
+                pobl.setNom("Barcelona");
+                pobl.setProvincia(p);
+
+                Contacte c = new Contacte();
+                c.setCodiPostal(request.getParameter("codi-postal"));
+                c.setDireccio(request.getParameter("domicili"));
+                c.setTelefon(Integer.parseInt(request.getParameter("telefon")));
+                c.seteMail(request.getParameter("email"));
+                c.setPoblacio(pobl);
+                c.setProvincia(p.getNom());
+
+                u.setContacte(c);
+
+                db.inserir(u);
+            } else {
+                response.sendRedirect(request.getContextPath()+"/registre-client.jsp?code=1"); //Nom usuari ja existent
+            }
+            
+            db.tancar();
+        }catch(Exception ex){
+            System.out.println("Error: "+ex);
+            response.sendRedirect(request.getContextPath()+"/registre-client.jsp?code=2");  //Usuari amb dni ja existent
         }
+            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

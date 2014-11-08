@@ -1,7 +1,7 @@
 package util;
 
-import com.google.common.base.Charsets;
-import com.google.common.hash.Hashing;
+//import com.google.common.base.Charsets;
+//import com.google.common.hash.Hashing;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -39,11 +39,13 @@ public class Util {
     }
     
     public static String generateHash(String password){
-        return Hashing.sha256().hashString(password, Charsets.UTF_8).toString();
+//        return Hashing.sha256().hashString(password, Charsets.UTF_8).toString();
+        return null;
     }
     
     public static void main (String[]args){
         System.out.println(generateHash("12341234"));
+        System.out.println(generateSHA256SecurePassword("12341234"));
 //        System.out.println(Hashing.md5().hashString("rafamateo", Charsets.UTF_8).toString());
 //        System.out.println(generateHash("2014admin"));
 //        System.out.println(generateHash("2014root"));
