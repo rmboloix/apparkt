@@ -1,17 +1,25 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Rafael Mateo Boloix
+ * @author Raf
  */
-public class RegistreServlet extends HttpServlet {
+@WebServlet(name = "NewServlet", urlPatterns = {"/NewServlet"})
+public class NewServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -24,22 +32,6 @@ public class RegistreServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String usuari = request.getParameter("usuari");
-        String contrasenya = request.getParameter("contrasenya");
-        String nom = request.getParameter("nom");
-        String cognom1 = request.getParameter("cognom1");
-        String cognom2 = request.getParameter("cognom2"); //Opcional
-        String email = request.getParameter("email");
-        String telefon = request.getParameter("telefon");
-        String dni = request.getParameter("dni");
-        String domicili = request.getParameter("domicili");
-        String codiPostal = request.getParameter("codi-postal");
-        String poblacio = request.getParameter("poblacio");
-        String matricula = request.getParameter("matricula");
-        String tipusCompte = request.getParameter("tipus-compte");
-        String compte = request.getParameter("compte");
-        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -50,22 +42,6 @@ public class RegistreServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
-            out.println("<ul>");
-            out.println("<li>"+usuari+"</li>");
-            out.println("<li>"+contrasenya+"</li>");
-            out.println("<li>"+nom+"</li>");
-            out.println("<li>"+cognom1+"</li>");
-            out.println("<li>"+cognom2+"</li>");
-            out.println("<li>"+email+"</li>");
-            out.println("<li>"+telefon+"</li>");
-            out.println("<li>"+dni+"</li>");
-            out.println("<li>"+domicili+"</li>");
-            out.println("<li>"+codiPostal+"</li>");
-            out.println("<li>"+poblacio+"</li>");
-            out.println("<li>"+matricula+"</li>");
-            out.println("<li>"+tipusCompte+"</li>");
-            out.println("<li>"+compte+"</li>");
-            out.println("</ul>");
             out.println("</body>");
             out.println("</html>");
         }

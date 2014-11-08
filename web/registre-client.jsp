@@ -13,7 +13,7 @@
     <article id="main-article" class="row">
         <div class="col-md-6 col-md-offset-3" id="cuadre-central">
             <p class="benvingut">Nou client</p>
-            <form id="client-form" method="post" action="login">
+            <form id="client-form" method="post" action="registre">
                 <input name="type" type="hidden" value="nou-client"/>
                 <table>
                     <tr >
@@ -65,7 +65,7 @@
                     </tr>
                     <tr>
                         <td><input name="matricula" type="text" class="validate[required]" placeholder="Matrícula"/></td>
-                        <td><select id="selector-compte">
+                        <td><select id="selector-compte" name="tipus-compte">
                                 <option value="IBAN">Compte Bancari (IBAN)</option>
                                 <option value="VISA">VISA/MASTERCARD</option>
                             </select>

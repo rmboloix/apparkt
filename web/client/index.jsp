@@ -1,5 +1,5 @@
 <%-- 
-    Document   : registre
+    Document   : Index Client
     Created on : 26-oct-2014, 13:08:41
     Author     : Rafael Mateo Boloix
 --%>
@@ -15,7 +15,7 @@
 %>
 <html>
     <t:head title="Registre de client"/>
-    <%@include file="../WEB-INF/jspf/menu.jspf" %>
+    <%@include file="../WEB-INF/jspf/menu-client.jspf" %>
     <article id="main-article" class="row">
         <div class="col-md-6 col-md-offset-3" id="cuadre-central">
             <p class="benvingut">Les meves dades de Client</p>
