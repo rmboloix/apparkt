@@ -1,27 +1,23 @@
 <%-- 
-    Document   : registre
+    Document   : Index Client
     Created on : 26-oct-2014, 13:08:41
     Author     : Rafael Mateo Boloix
 --%>
-
-<%@page import="model.UsuariBean"%>
+<%@page import="apparkt.Admin"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="t" %>
 <!DOCTYPE html>
 <% 
-    
-    UsuariBean usuari = (UsuariBean)request.getSession().getAttribute("usuari");
+    System.out.println("Home Admin");
+    Admin usuari = (Admin)request.getSession().getAttribute("usuari");
 
 %>
 <html>
-    <t:head title="Registre de client"/>
-    <%@include file="../WEB-INF/jspf/menu.jspf" %>
+    <t:head title="Inici Administrador"/>
+    <%@include file="../WEB-INF/jspf/menu-admin.jspf" %>
     <article id="main-article" class="row">
         <div class="col-md-6 col-md-offset-3" id="cuadre-central">
-            <p class="benvingut">Les meves dades de Administrador</p>
-            <%=usuari.getUserName() %>
-            <%=usuari.getContrasenya() %>
-            <a href="${pageContext.request.contextPath}/logout">Logout</a>
+            <p class="benvingut">Benvingut <%=usuari.getNom() %></p>
         </div>
         <div class="col-md-2">
             

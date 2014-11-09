@@ -65,6 +65,7 @@ public class RegistreServlet extends HttpServlet {
                 u.setContacte(c);
 
                 db.inserir(u);
+                response.sendRedirect(request.getContextPath()+"/login.jsp?code=ok"); //Registre realitzat correctament
             } else {
                 response.sendRedirect(request.getContextPath()+"/registre-client.jsp?code=1"); //Nom usuari ja existent
             }

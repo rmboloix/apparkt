@@ -156,6 +156,9 @@ public interface GestorPersistencia {
     
     Usuari obtenirUsuariPerNomUsuari(String nomUsuari) throws UtilitatPersistenciaException;
     
+    Persona obtenirPersonaPerNomUsuari(String nomUsuari) throws UtilitatPersistenciaException;
+    
+    
     /**
      * Obte una instancia persistent (emmagatzemada a la base de dades) de client, 
      * identificada amb el nif que es passa per parametre. 

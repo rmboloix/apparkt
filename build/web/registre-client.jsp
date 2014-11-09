@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="t" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <t:head title="Registre de client"/>
@@ -13,6 +14,14 @@
     <article id="main-article" class="row">
         <div class="col-md-6 col-md-offset-3" id="cuadre-central">
             <p class="benvingut">Nou client</p>
+            <c:choose>
+                <c:when test="${param.code == '1'}" >
+                    <p class="code-error">Nom d'usuari ja existent</p>
+                </c:when>
+                <c:when test="${param.code == '2'}" >
+                    <p class="code-error">Usuari amb dni ja existent</p>
+                </c:when>
+            </c:choose>
             <form id="client-form" method="post" action="registre">
                 <input name="type" type="hidden" value="nou-client"/>
                 <table>

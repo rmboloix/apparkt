@@ -1,10 +1,14 @@
 package servlets.filters;
 
+import Persistencia.GestorPersistencia;
+import Persistencia.GestorPersistenciaJPA;
+import apparkt.Persona;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -14,7 +18,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.UsuariBean;
+import utilitatsBD.UtilitatPersistenciaException;
 
 /**
  *
@@ -42,12 +46,20 @@ public class loginFilter implements Filter {
         HttpSession session = req.getSession(true);
         
         if(session == null || session.getAttribute("usuari") == null){
-            //Establim l'usuari.
-            UsuariBean user = new UsuariBean();
-            //Captar les dades del usuari de la base de dades.
-            user.setUserName(req.getRemoteUser());
-            user.setContrasenya("Hola!");
-            session.setAttribute("usuari", user);
+            try {
+                //Establim l'usuari.
+                GestorPersistencia db = new GestorPersistenciaJPA("UnitatDePersistenciaAmbJpa");
+                db.obrir();
+                Persona user = null;
+                String nomUsuari = req.getRemoteUser();
+                System.out.println("NOM USUARI :"+nomUsuari);
+                user = db.obtenirPersonaPerNomUsuari(nomUsuari);
+                System.out.println("USUARI: "+user);
+                db.tancar();
+                session.setAttribute("usuari", user);
+            } catch (UtilitatPersistenciaException ex) {
+                Logger.getLogger(loginFilter.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 	// Write code here to process the request and/or response before
         // the rest of the filter chain is invoked.

@@ -147,6 +147,22 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
     
     
     @Override
+    public Persona obtenirPersonaPerNomUsuari(String nomUsuari){
+        Persona user=null;
+        Query qry;
+
+        qry = em.createQuery("Select u from Persona u where u.nomusuari = :nomUsuari");
+        qry.setParameter("nomUsuari", nomUsuari);
+        
+        try {
+            user=(Persona) qry.getSingleResult();
+        } catch (javax.persistence.NoResultException ex) {
+            
+        }
+        return user;
+    }
+    
+    @Override
     public Usuari obtenirUsuariPerNomUsuari(String nomUsuari){
         Usuari user=null;
         Query qry;
