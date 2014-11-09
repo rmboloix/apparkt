@@ -33,10 +33,10 @@
                     <tr>
                         
                         <td>
-                            <input name="usuari" type="text" class="validate[required]" placeholder="Usuari">
+                            <input name="usuari" type="text" class="validate[required,minSize[8]]" placeholder="Usuari">
                         </td>
                         <td>
-                            <input name="contrasenya" id="contrasenya" type="password" class="validate[required]" placeholder="Contrasenya"/>
+                            <input name="contrasenya" id="contrasenya" type="password" class="validate[required,minSize[8]]" placeholder="Contrasenya"/>
                         </td>
                         <td>
                             <input name="contrasenya-2" type="password" class="validate[required,equals[contrasenya]]" placeholder="Confirma contrasenya"/>

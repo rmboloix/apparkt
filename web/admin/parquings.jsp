@@ -13,7 +13,7 @@
 
 %>
 <html>
-    <t:head title="Inici Administrador"/>
+    <t:head title="Parquings"/>
     <%@include file="../WEB-INF/jspf/menu-admin.jspf" %>
     <article id="main-article" class="row">
         <div class="col-md-6 col-md-offset-3" id="cuadre-central">
