@@ -36,7 +36,6 @@ public class RegistreServlet extends HttpServlet {
             
             Usuari user = db.obtenirUsuariPerNomUsuari(request.getParameter("usuari"));
             if (user==null) {
-                System.out.println("ok, la persona no existei!");
                 Usuari u = new Usuari();
                 u.setDni(request.getParameter("dni"));
                 u.setNom(request.getParameter("nom"));
@@ -51,7 +50,8 @@ public class RegistreServlet extends HttpServlet {
                 Provincia p = new Provincia();
                 p.setNom("Barcelona");
                 Poblacio pobl = new Poblacio();
-                pobl.setNom("Barcelona");
+                //pobl.setNom("Barcelona");
+                pobl.setNom(request.getParameter("poblacio"));
                 pobl.setProvincia(p);
 
                 Contacte c = new Contacte();

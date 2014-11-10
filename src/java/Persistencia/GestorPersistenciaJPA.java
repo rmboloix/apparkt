@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Persistencia;
 
 import apparkt.Persona;
@@ -23,7 +17,7 @@ import utilitatsBD.UtilitatPersistenciaException;
 
 /**
  *
- *@author professor
+ *@author Miquel Àngel Vélez Serrano
  */
 public class GestorPersistenciaJPA implements GestorPersistencia{
     EntityManagerFactory emf;
@@ -258,15 +252,13 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
 
         return (List<Reserva>) qry.getResultList();
     }
-
+    
     private void iniciTransaccio() {
          em.getTransaction().begin();
     }
 
     private void fiTransaccio() {
-
        em.getTransaction().commit();
- 
     }
 
     private void gestionaAlta(Object nou) throws UtilitatPersistenciaException {
@@ -291,6 +283,7 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
             throw new UtilitatPersistenciaException("L'objecte a esborrar no existeix");
         }
     }
+    
     private void gestionaModificacio(Object nou) throws UtilitatPersistenciaException {
         try{
             iniciTransaccio();

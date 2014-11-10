@@ -1,10 +1,6 @@
 package apparkt;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import javax.persistence.UniqueConstraint;
 
 /**
@@ -38,8 +33,6 @@ public class Reserva implements Serializable {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="dni", referencedColumnName="dni")
     private Usuari usuari;
-    //private Date data; 
-    //Per tal de gestionar hores s'ha de fer servir calendar.
     private java.sql.Timestamp hora_inici;
     private java.sql.Timestamp hora_fi;
     private Boolean utilitzada;

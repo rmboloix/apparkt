@@ -3,8 +3,6 @@ package apparkt;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,8 +21,6 @@ public class Poblacio implements Serializable {
     @Id
     @Column(length=100)
     private String nom;
-    //@Column(name="provincia", length=100)
-    //private String nomprovincia;
     @ManyToOne
     @JoinColumn(name="provincia", referencedColumnName="nom", insertable=false, updatable=false)
     private Provincia provincia;
@@ -36,7 +32,6 @@ public class Poblacio implements Serializable {
     public Poblacio(String nom, Provincia provincia) {
         this.nom = nom;
         this.provincia = provincia;
-        //this.nomprovincia = provincia.getNom();
     }
     
     //A continuació venen els getters i setters.
@@ -55,8 +50,5 @@ public class Poblacio implements Serializable {
 
     public void setProvincia(Provincia provincia) {
         this.provincia = provincia;
-        //this.nomprovincia = provincia.getNom();
-    }
-    
-    
+    }  
 }

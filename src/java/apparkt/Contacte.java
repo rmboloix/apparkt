@@ -5,7 +5,6 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 
 /**
@@ -19,10 +18,6 @@ public class Contacte implements Serializable{
     private String direccio;
     
     @ManyToOne(fetch= FetchType.LAZY)
-//    @JoinColumns({
-//        @JoinColumn(name="poblacio", referencedColumnName="nom"),
-//        @JoinColumn(name="provincia", referencedColumnName="nomProvincia")
-//    })
     @JoinColumn(name="poblacio", referencedColumnName="nom")
     private Poblacio poblacio;
     @Column(length=45)
