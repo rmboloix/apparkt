@@ -15,9 +15,9 @@ import java.util.logging.Logger;
  */
 public class Util {
     /**
-     * @autor Rafael Mateo Boloix
+     * @author Rafael Mateo Boloix
      * @param password
-     * @return 
+     * @return string con el password encriptado
      */
     public static String generateSHA256SecurePassword(String password){
         StringBuilder st = new StringBuilder();
@@ -45,8 +45,5 @@ public class Util {
     
     public static void main (String[]args){
         System.out.println(generateHash("12341234"));
-//        System.out.println(Hashing.md5().hashString("rafamateo", Charsets.UTF_8).toString());
-//        System.out.println(generateHash("2014admin"));
-//        System.out.println(generateHash("2014root"));
     }
 }
