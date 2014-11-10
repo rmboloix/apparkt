@@ -1,4 +1,6 @@
-<%-- footer and legal notice --%>
+<%--
+    autor:Rafael Mateo Boloix
+    footer and legal notice --%>
 <%@page import="java.util.GregorianCalendar"%>
 <%@ page pageEncoding="UTF-8" %>
 <% 

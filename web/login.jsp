@@ -24,9 +24,13 @@
 <html lang="es">
     <t:head title="Login"/>
     <%@include file="WEB-INF/jspf/menu.jspf" %>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <article id="main-article" class="row">
         <div class="col-md-4 col-md-offset-4" id="cuadre-central">
             <p class="benvingut">Benvingut a Apparkt! <br/>La teva web per a la reserva de pàrquing</p>
+            <c:if test="${param.code == 'ok'}">
+            <p class="code-ok">Usuari registrat correctament!</p>
+            </c:if>
             <p>Inicia sessió</p>
             <form id="login-form" class="login-form" method="post" action="j_security_check">
                 <input name="type" type="hidden" value="login"/>

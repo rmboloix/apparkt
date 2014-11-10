@@ -12,9 +12,9 @@
         <nav>
             <ul>
                 <li class="active"><a href="${pageContext.request.contextPath}">Inici</a></li>
-                <li><a href="${pageContext.request.contextPath}/registre-client.jsp">Les meves dades</a></li>
+                <li><a href="${pageContext.request.contextPath}/client/dades-client.jsp">Les meves dades</a></li>
                 <!--<li><a href="${pageContext.request.contextPath}/root/registre-administrador.jsp">Nou Administrador</a></li>-->
-                <li><a href="${pageContext.request.contextPath}/com-reservar.jsp">Fer una reserva</a></li>
+                <li><a href="${pageContext.request.contextPath}/client/reservar.jsp">Fer una reserva</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
             </ul>
         </nav>

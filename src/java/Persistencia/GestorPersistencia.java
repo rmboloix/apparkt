@@ -154,15 +154,10 @@ public interface GestorPersistencia {
      */ 
     Persona obtenirPersona (String dni) throws UtilitatPersistenciaException;
     
-    /**
-     * Obte una instancia persistent (emmagatzemada a la base de dades) de client, 
-     * identificada amb el nif que es passa per parametre. 
-     * @param nif nif que identifica l'entitat que es desitja recuperar
-     * @return Instancia de l'entitat recuperada amb les dades emmagatzemades.
-     * @throws UtilitatPersistenciaException si no existeix cap instancia amb el nif assenyalat pel parametre o 
-     * si es produeix un error al SGBD
-     */ 
-    Usuari obtenirUsuariPerNomUsuari (String nomUsuari) throws UtilitatPersistenciaException;
+    Usuari obtenirUsuariPerNomUsuari(String nomUsuari) throws UtilitatPersistenciaException;
+    
+    Persona obtenirPersonaPerNomUsuari(String nomUsuari) throws UtilitatPersistenciaException;
+    
     
     /**
      * Obte una instancia persistent (emmagatzemada a la base de dades) de client, 
