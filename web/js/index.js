@@ -17,4 +17,13 @@ $(document).ready(function(){
         showArrow:false,
         promptPosition:"bottomLeft"
     });
+    
+    $("#modificar-contrasenya").change(function (){
+       if($(this).is(":checked")){
+           //checked
+            $("input.hidden").removeAttr("disabled").removeClass("hidden");
+            $(this).parent().find("span").hide();
+            $(this).hide();
+       }
+    });
 });

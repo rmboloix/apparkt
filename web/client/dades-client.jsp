@@ -18,7 +18,7 @@
     <article id="main-article" class="row">
         <div class="col-md-6 col-md-offset-3" id="cuadre-central">
             <p class="benvingut">Les meves dades</p>
-            <form id="client-form" method="post" action="registre">
+            <form id="client-form" method="post" action="<%=request.getContextPath() %>/modificar">
                 <input name="type" type="hidden" value="nou-client"/>
                 <table>
                     <tr >
@@ -27,15 +27,15 @@
                         </td>
                     </tr>
                     <tr>
-                        
                         <td>
-                            <input name="usuari" type="text" class="validate[required]" placeholder="Usuari" value="<%=user.getNomUsuari() %>">
+                            <input name="usuari" type="text" class="validate[required]" placeholder="Usuari" value="<%=user.getNomUsuari() %>" readonly="readonly">
                         </td>
                         <td>
-                            <!--<input name="contrasenya" id="contrasenya" type="password" class="validate[required]" placeholder="Contrasenya"/>-->
+                            <input name="modificar" type="checkbox" id="modificar-contrasenya" /><span>Modificar contrasenya</span>
+                            <input class="hidden" name="contrasenya" id="contrasenya" type="password" class="validate[required]" placeholder="Contrasenya" disabled/>
                         </td>
                         <td>
-                            <!--<input name="contrasenya-2" type="password" class="validate[required,equals[contrasenya]]" placeholder="Confirma contrasenya"/>-->
+                            <input class="hidden" name="contrasenya-2" type="password" class="validate[required,equals[contrasenya]]" placeholder="Confirma contrasenya" disabled/>
                         </td>
                     </tr>
                     <tr>
@@ -56,8 +56,8 @@
                     </tr>
                     <tr>
                         <td> <input name="email" type="text" class="validate[required,custom[email]]" placeholder="E-mail" value="<%=user.getContacte().geteMail() %>"/></td>
-                        <td><input name="dni" type="text" class="validate[required]" placeholder="DNI/NIF" value="<%=user.getDni() %>"/></td>
-                        <td><input name="telefon" type="text" class="validate[required,custom[phone]]" placeholder="Telèfon"/></td>
+                        <td><input name="dni" type="text" class="validate[required]" placeholder="DNI/NIF" value="<%=user.getDni() %>" readonly="readonly"/></td>
+                        <td><input name="telefon" type="text" class="validate[required,custom[phone]]" placeholder="Telèfon" value="<%=user.getContacte().getTelefon() %>"/></td>
                     </tr>
                     <tr>
                         <td><input name="domicili" type="text" class="validate[required]" placeholder="Domicili" value="<%=user.getContacte().getDireccio() %>"/></td>
@@ -70,18 +70,19 @@
                     </tr>
                     <tr>
                         <td><input name="matricula" type="text" class="validate[required]" placeholder="Matrícula" value="<%=user.getMatricula() %>"/></td>
-                        <td><select id="selector-compte" name="tipus-compte">
+                        <td>
+                            <select id="selector-compte" name="tipus-compte">
                                 <option value="IBAN">Compte Bancari (IBAN)</option>
                                 <option value="VISA">VISA/MASTERCARD</option>
                             </select>
                         </td>
                         <td><input name="compte" type="text" class="validate[required]" placeholder="Número" value="<%=user.getDadesFacturacio() %>"/></td>
                     </tr>
-                    <!--<tr>
+                    <tr>
                         <td></td>
-                        <td><p class="politica">Acepto la <a target="_blank" href="${pageContext.request.contextPath}/privacitat.jsp">Política de privadesa</a> <input type="checkbox" name="privadesa" class="validate[required]"/></p></td>
-                        <td><input type="submit" value="Registrar-me"/></td>
-                    </tr>-->
+                        <td></td>
+                        <td><input type="submit" value="Modificar dades"/></td>
+                    </tr>
                 </table>
             </form>
         </div>
