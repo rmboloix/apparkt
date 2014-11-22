@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link href='http://fonts.googleapis.com/css?family=Expletus+Sans:700,400' rel='stylesheet' type='text/css'/>
     <link href="${pageContext.request.contextPath}/css/validationEngine.jquery.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="https:maps.googleapis.com/maps/api/js?key=AIzaSyDHxpGZfMxLW_VgORViVxVCWy9qbOoj1Ls&sensor=false"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
