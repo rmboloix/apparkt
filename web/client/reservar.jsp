@@ -28,17 +28,32 @@
         function initMap(){
             google.maps.visualRefresh = true;
             var mapOptions = {
-                center: barcelona,
-                zoom: 13,
+                //center: barcelona,
+                //zoom: 13,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             var mapElement = document.getElementById("mapDiv");
             map = new google.maps.Map(mapElement, mapOptions);
-            marker = new google.maps.Marker({
-                position:barcelona
-                //animation:google.maps.Animation.BOUNCE
-            });
-            marker.setMap(map);
+            //Marcador
+            
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(function (position){
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+                    var devCenter = new google.maps.LatLng(lat,lng);
+                    map.setCenter(devCenter);
+                    map.setZoom(16);
+                    marker = new google.maps.Marker({
+                        position:devCenter,
+                        animation:google.maps.Animation.BOUNCE
+                    });
+                    marker.setMap(map);
+                });
+            }else{
+                map.setCenter(barcelona);
+                map.setZoom(15);
+            }
+            
         }
         
         google.maps.event.addDomListener(window,'load',initMap);
