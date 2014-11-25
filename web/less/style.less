@@ -1,0 +1,291 @@
+/* @autor: Rafael Mateo Boloix */
+@import "contants.less";
+
+._borderRadius(@Radius:3px){
+    -webkit-border-radius: @Radius;
+    border-radius: @Radius;
+}
+
+html{
+   
+}
+
+html body a{
+    color:lighten(@colorAzul,30%);
+    &:hover{
+        color:inherit;
+    }
+}
+
+body{
+    background: url(../img/fondo-a-bn.jpg) no-repeat;
+    background-size: cover; 
+    background-color: #ccc!important;
+}
+
+#main-article{
+    height:500px;
+}
+
+.hidden{
+    display:none;
+}
+
+header{
+    font-family: @font-Web;
+    background: @grisTransparente;
+    margin-bottom: @gap;
+    
+    h1{
+        color: white;
+        font-size: 48pt;
+        margin: 0;
+        line-height: 80px;
+        position: relative;
+        top: 18px;
+        display: inline;
+    }
+    img.logo{
+       position: absolute;
+        top: 26px;
+        left: 244px;
+    }
+    #main-header{
+        border-bottom: 1px solid white;
+        position:relative;
+        margin-top:15px;
+/*        margin-left:@gap;
+        margin-right:@gap;*/
+        div.logo{
+            width: 300px;
+            a{
+                text-decoration: none;
+                cursor:pointer;
+            }
+        }
+        nav{
+            display: inline-block;
+            color:white;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            ul{
+                list-style-type: none;
+                height: 100%;
+                overflow: auto;
+                margin: 0;
+                li{
+                    float:left;
+                    margin-right:5px;
+                    padding: 0 15px;
+                }
+                li.active{
+                    a{
+                        color:white;
+                    }
+                }
+            }
+        }
+    }
+}
+.full-width{
+    padding: @gap @gap 0 @gap;
+    margin-left: -@gap;
+    margin-right: -@gap;
+}
+
+.nou-usuari{
+    text-align: right;
+}
+
+#main-article .code-ok{
+    font-size: 20px;
+    color: greenyellow;
+}
+
+#main-article .code-error{
+    font-size: 20px;
+    color: red;
+}
+
+#cuadre-central{
+    padding: 30px @gap;
+    ._borderRadius();
+    background: @grisTransparente2;
+    background: #445275; /* Old browsers */
+    background: -moz-linear-gradient(top,  #445275 0%, #223c79 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#445275), color-stop(100%,#223c79)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #445275 0%,#223c79 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #445275 0%,#223c79 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #445275 0%,#223c79 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #445275 0%,#223c79 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#445275', endColorstr='#223c79',GradientType=0 ); /* IE6-9 */
+    
+    p{
+        margin:0;
+        padding:0;
+        color: white;
+        font-size: 12px;
+    }
+    
+    p:nth-child(2), p:nth-child(4){
+        margin-top:13px;
+    }
+}
+
+#main-article p.benvingut{
+    font-family: @font-Web;
+    font-size: 28px;
+}
+
+#cuadre-central.login-error{
+    background: rgba(255,0,0,0.8);
+}
+
+#main-article div.anunci{
+    height: 435px;
+    background: @colorVerdeTransparente;
+    color: white;
+    
+    font-family: @font-Web;
+    font-size: 13px;
+    p{
+        padding: 6px;
+        text-align: center;
+        img{
+            display: block;
+            margin: 0 auto;
+            padding: 20px 0 20px 0;
+        }
+    }
+    
+    ul{
+        padding: 17px;
+        list-style-position: inside;
+        font-size: 12px;
+    }
+    
+    
+    
+}
+
+/* 
+
+    FORMULARI 
+
+*/
+
+form.login-form{
+    display: block;
+    /*height: 250px;*/
+    font-family: @font-Web;
+    
+    /*margin:7px 0;*/
+    input[type="submit"]{
+        background: cornflowerblue;
+        width: 28%;
+        border: none;
+        height: 26px;
+        /*padding: 0 24px;*/
+        text-align:center;
+        color: white;
+        &:hover{
+            background: @colorGrisOscuro;
+            color: white;
+        }
+    }
+    input[type="text"],input[type="password"]{
+        width:34%;
+        padding-left:4px;
+        border:none;
+        height:26px;
+    }
+}
+
+
+
+form#client-form,form#administrador-form{
+    table{
+        border-spacing: 3px;
+        border-collapse: separate;
+        width: 100%;
+        td{
+            p{
+                padding: 22px 0 0;
+            }
+            p.dades{
+              border-bottom:4px solid grey;  
+            }
+            p.cotxe{
+              border-bottom:4px solid grey;  
+            }
+            p.facturacio{
+              border-bottom:4px solid grey;  
+            }
+            span{
+                font-family: @font-Web;
+                color:white;
+                font-size: 12px;
+            }
+        }
+        td:nth-child(2){
+            width: 33.33%;
+        }
+    }
+    display: block;
+    font-family: @font-Web;
+    input[type="text"],input[type="password"]{
+        padding-left:4px;
+        width:100%;
+        .formulari;
+        /*margin:4px 0;*/
+    }
+    input[type="checkbox"]{
+        position: relative;
+        top: 3px;
+    }
+    select{
+        .formulari;
+        width: 100%;
+    }
+    .politica{
+        text-align:center;
+    }
+    input[type="submit"]{
+        background: cornflowerblue;
+        margin-top: 20px;
+        border: none;
+        height: 26px;
+        text-align:center;
+        color: white;
+        float:right;
+        &:hover{
+            background: @colorGrisOscuro;
+            color: white;
+        }
+    }
+}
+
+
+
+/*
+    footer
+*/
+
+footer{
+    background: @grisTransparente;
+    color:white;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    p{
+        padding:4px 0;
+        text-align: center;
+        font-size: 10px;
+        margin:0;
+    }
+}
+
+.clearer{
+    clear:both;
+}
