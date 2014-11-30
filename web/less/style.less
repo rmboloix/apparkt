@@ -108,7 +108,7 @@ header{
     color: red;
 }
 
-#cuadre-central{
+#cuadre-central,#form-buscador,#form-reserva{
     padding: 30px @gap;
     ._borderRadius();
     background: @grisTransparente2;
@@ -132,6 +132,8 @@ header{
         margin-top:13px;
     }
 }
+
+
 
 #main-article p.benvingut{
     font-family: @font-Web;
@@ -175,7 +177,7 @@ header{
 
 */
 
-form.login-form{
+form.login-form, #form-buscador,#form-reserva{
     display: block;
     /*height: 250px;*/
     font-family: @font-Web;
@@ -202,7 +204,20 @@ form.login-form{
     }
 }
 
-
+#form-buscador,#main-content div#form-reserva{
+    input[type="text"]{
+        display: block;
+        width: 100%;
+        margin: 4px 0;
+    }
+    input[type="submit"]{
+        width: auto;
+    }
+    p{
+        margin:0;
+        padding:4px 0;
+    }
+}
 
 form#client-form,form#administrador-form{
     table{
