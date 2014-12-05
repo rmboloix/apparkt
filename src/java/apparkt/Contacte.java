@@ -20,8 +20,8 @@ public class Contacte implements Serializable{
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="poblacio", referencedColumnName="nom")
     private Poblacio poblacio;
-    @Column(length=45)
-    private String provincia;
+    //@Column(length=45)
+    //private String provincia;
     @Column(length=5)
     private String codiPostal;
     @Column
@@ -30,7 +30,6 @@ public class Contacte implements Serializable{
     private String eMail;
     
     public Contacte() {
-        
     }
     
     public Contacte(String direccio, String codiPostal, Poblacio poblacio) {
@@ -63,13 +62,13 @@ public class Contacte implements Serializable{
         this.poblacio = poblacio;
     }
 
-    public String getProvincia() {
-        return provincia;
-    }
-
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
-    }
+//    public String getProvincia() {
+//        return provincia;
+//    }
+//
+//    public void setProvincia(String provincia) {
+//        this.provincia = provincia;
+//    }
     
     public int getTelefon() {
         return telefon;

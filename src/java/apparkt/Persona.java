@@ -154,7 +154,7 @@ public abstract class Persona implements Serializable {
     public String toString() {
         return dni+" "+nom+" "+cognom1+" "+cognom2+" "+contacte.getDireccio()
                 +" "+contacte.getPoblacio().getNom()+" "+contacte.getCodiPostal()
-                +" "+contacte.getProvincia()+" "+contacte.getTelefon()
+                /*+" "+contacte.getProvincia()*/+" "+contacte.getTelefon()
                 +" "+contacte.geteMail()+" "+nomusuari+" "+password;
     }    
 }
