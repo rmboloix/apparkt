@@ -15,7 +15,7 @@ public class Usuari extends Persona {
     //Definició dels atributs
     private String dadesFacturacio;
     private String matricula;
-
+    
     /**
      * Constructor per defecte
      * 

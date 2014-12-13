@@ -252,16 +252,29 @@ public interface GestorPersistencia {
      * @throws UtilitatPersistenciaException si es produeix un error al SGBD
      */    
     List <Placa> obtenirPlacesDunAparcament(int idAparcament) throws UtilitatPersistenciaException;
+    
+    /**
+     * Obte la llista de totes les instancies persistents (emmagatzemades a la base de dades) de Placa, disponibles
+     * per reservar en el període d'hores sol·licitades per l'usuari.
+     * @param entrada objecte timestamp que determina l'entrada sol·licitada per l'usuari.
+     * @param sortida objecte timestamp que determina la sortida sol·licitada per l'usuari.
+     * @return llista de totes les instancies persistents (emmagatzemades a la base de dades) de Placa, disponibles
+     * per reservar en el període d'hores sol·licitades per l'usuari.
+     * @throws UtilitatPersistenciaException si es produeix un error al SGBD
+     */    
+    List<Object[]> obtenirPlacesDisponibles (Timestamp entrada, Timestamp sortida) throws UtilitatPersistenciaException;
 
     /**
      * Obte la llista de totes les instancies persistents (emmagatzemades a la base de dades) de Reserva, pertanyents
      * a la instància d' Usuari identificat amb el dni que es passa per parametre.
      * @param dni dni que identifica l'entitat Usuari del que es desitja recuperar les reserves
+     * @param vigents si el valor és true, només mostrarà les vigents, en cas de fals, mostrarà totes les seves reserves
+     * realitzades en qualsevol moment, estiguin vigents o no.
      * @return llista de totes les instancies persistents (emmagatzemades a la base de dades) de Reserva, pertanyents
      * a la instància d' Usuari identificat amb el dni que es passa per parametre.
      * @throws UtilitatPersistenciaException si es produeix un error al SGBD
      */     
-    List <Reserva> obtenirReservesDunUsuari(String dni) throws UtilitatPersistenciaException;
+    List <Reserva> obtenirReservesDunUsuari(String dni, boolean vigents) throws UtilitatPersistenciaException;
     
     /**
      * Obte la llista de totes les instancies persistents (emmagatzemades a la base de dades) de Reserva, pertanyents

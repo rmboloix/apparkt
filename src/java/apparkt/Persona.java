@@ -43,8 +43,8 @@ public abstract class Persona implements Serializable {
     private String password;
     
     
-    @OneToMany(mappedBy = "usuari", fetch= FetchType.LAZY)
-    private List<Reserva> reservas;
+    /*@OneToMany(mappedBy = "usuari", fetch= FetchType.LAZY)
+    private List<Reserva> reservas;*/
     
     /**
      * Mètode login

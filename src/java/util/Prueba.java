@@ -8,7 +8,9 @@ package util;
 
 import Persistencia.GestorPersistencia;
 import Persistencia.GestorPersistenciaJPA;
+import apparkt.Reserva;
 import java.sql.Timestamp;
+import java.util.List;
 import utilitatsBD.UtilitatPersistenciaException;
 
 /**
@@ -22,6 +24,8 @@ public class Prueba {
             db.iniciar();
             db.obrir();
             //System.out.println(db.obtenirPersona("46942299N"));
+            
+            /*TESTEJAR ENTRADA I SORTIDA DE COTXES ********************************
             Timestamp hora_entrada = new Timestamp(new java.util.Date().getTime());
             Timestamp hora_sortida = new Timestamp(new java.util.Date().getTime()+300000);
             
@@ -30,6 +34,24 @@ public class Prueba {
             System.out.println(db.obtenirReservaPerMatricula("1111AAA", 3, hora_entrada));
             db.enregistraSortida("1111AAA", 3, hora_sortida);
             System.out.println(db.obtenirReservaPerMatricula("1111AAA", 3, hora_entrada));
+            ***************************************************************************/
+            
+            //TESTEJAR OBTENIR PLACES LLIURES ********************************
+            Timestamp hora_entrada = new Timestamp(new java.util.Date().getTime());
+            Timestamp hora_sortida = new Timestamp(new java.util.Date().getTime()+300000);
+            List<Object[]> disponibles = db.obtenirPlacesDisponibles(hora_entrada, hora_sortida);
+            for (Object[] o : disponibles) {
+                System.out.println("idAparcament= " + o[0] + " numero de places lliures= " + o[1]);
+            }
+            //***************************************************************************/
+            
+            /*TESTEJAR OBTENIR RESERVES VIGENTS O NO D'UN USUARI*************************
+            List<Reserva> llista = db.obtenirReservesDunUsuari("46942299N", true);
+            for (Reserva r: llista) {
+                System.out.println(r.toString());
+            }
+            ***************************************************************************/
+            
             db.tancar();
         } catch (UtilitatPersistenciaException ex) {
             System.out.println("Error :"+ex);

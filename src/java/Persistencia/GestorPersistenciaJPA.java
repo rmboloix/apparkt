@@ -238,10 +238,14 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
     }
 
     @Override
-    public List<Reserva> obtenirReservesDunUsuari(String dni) throws UtilitatPersistenciaException {
-        Query qry;
-
-        qry = em.createQuery("Select r from Reserva r where r.usuari.dni = :dni");
+    public List<Reserva> obtenirReservesDunUsuari(String dni, boolean vigents) throws UtilitatPersistenciaException {
+        Query qry = null;
+        
+        if (vigents) {
+            qry = em.createQuery("Select r from Reserva r where r.usuari.dni = :dni and r.passada=false and r.anulada=false and r.utilitzada=false");
+        } else {
+            qry = em.createQuery("Select r from Reserva r where r.usuari.dni = :dni");
+        }
         qry.setParameter("dni", dni);
 
         return (List<Reserva>) qry.getResultList();
@@ -316,7 +320,8 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
             throw new UtilitatPersistenciaException(e.getMessage());
         }
         if(resultat==null){
-            throw new UtilitatPersistenciaException("L'objecte no existeix a la base de dades");
+            //throw new UtilitatPersistenciaException("L'objecte no existeix a la base de dades");
+            return resultat;
         }else{
             return resultat;            
         }
@@ -370,5 +375,26 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
         res.setHora_fi_real(hora_fi_real);
         res.setPassada(Boolean.TRUE);
         gestionaModificacio(res);
+    }
+
+    @Override
+    public List<Object[]> obtenirPlacesDisponibles(Timestamp entrada, Timestamp sortida) throws UtilitatPersistenciaException {
+        List<Object[]> disponibles = null;
+        Query qry;
+
+        qry = em.createQuery("Select p.aparcament.idAparcament, count (p.numero) from Placa p where p.idplaca not in "
+                + "(Select r.placa.idplaca from Reserva r where ((:entrada between r.hora_inici AND r.hora_fi) OR "
+                + "(:sortida between r.hora_inici AND r.hora_fi)) AND (r.utilitzada=false)AND(r.passada=false) AND "
+                + "(r.anulada=false)) group by p.aparcament.idAparcament order by p.aparcament.idAparcament");
+        qry.setParameter("entrada", entrada);
+        qry.setParameter("sortida", sortida);
+
+        try {
+            disponibles = (List<Object[]>) qry.getResultList();
+        } catch (javax.persistence.NoResultException ex) {
+            
+        }
+
+        return disponibles;
     }
 }
