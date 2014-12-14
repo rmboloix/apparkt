@@ -69,7 +69,6 @@ public class ModificarDadesServlet extends HttpServlet {
                 c.seteMail(request.getParameter("email"));
                 c.setPoblacio(pobl);
                 c.setProvincia(p.getNom());
-
                 user.setContacte(c);
                 db.modificar(user);
                 request.getSession().setAttribute("usuari", user);

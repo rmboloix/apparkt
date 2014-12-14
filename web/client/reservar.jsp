@@ -15,24 +15,26 @@
         <div class="col-md-3" >
             <div id="form-buscador">
                 <p class="benvingut">Buscar</p>
-                <form action="reserva">
+                <form id="form-buscar-reserva" action="<%=request.getContextPath()%>/ReservaServlet" method="post">
+                    <input type="hidden" name="acc" value="buscar" />
                     <input type="text" name="carrer" placeholder="Carrer"/>
-                    <input type="text" name="inici" placeholder="Data"/>
-                    <input type="text" name="time-in" placeholder="Hora entrada"/>
-                    <input type="text" name="time-out" placeholder="Hora sortida"/>
-                    <input type="submit" value="Buscar"/>
+                    <input type="text" name="data" placeholder="Data"/>
+                    <input type="text" name="hora-entrada" placeholder="Hora entrada"/>
+                    <input type="text" name="hora-sortida" placeholder="Hora sortida"/>
+                    <input type="text" name="codi-postal" placeholder="Codi postal"/>
+                    <input id="submit-buscar-reserva" type="submit" value="Buscar"/>
                 </form>
             </div>
         </div>
         <div class="col-md-6" id="cuadre-central">
             <p class="benvingut">Reserva</p>
             <div id="mapDiv" style="width:100%; height:400px;"></div>
-            <p id='parquings-trobats'>S'han trobat 4 parquings</p>
+            <p id='parquings-trobats'>S'han trobat <span>0</span> parquings</p>
         </div>
         <div class="col-md-3">
             <div id="form-reserva">
                 <p class="benvingut">Resumen reserva</p>
-                <form action="reserva">
+                <form action="<%=request.getContextPath()%>/ReservaServlet" method="post">
                     <p id="nombre-parquing">Carrer</p>
                     <p id="dia-parquing">12 Enero 2014</p>
                     <p id="hora-entrada-parquing">21:00</p>
@@ -50,10 +52,27 @@
         var map;
         var aparcamentSeleccionat;
         var markerSelected;
+        var markers = [];
         var circle;
         var barcelona = new google.maps.LatLng(41.3842113,2.1648133,14);
-        //var markerNumPlaces;
-        //var aparcament;
+        $('#submit-buscar-reserva').on('click', function(event) {
+            event.preventDefault();
+            $.post('/Apparkt/ReservaServlet', {
+                    'horaInici': $('input[name="hora-entrada"]').val(), 
+                    'horaFi':$('input[name="hora-sortida"]').val(),
+                    'data':$('input[name="data"]').val() 
+            }, function(data) {
+                limpiarMapa();
+                console.log(data);
+                aparcaments = JSON.parse(data);
+                insereixAparcaments();
+                movingToStreet($('input[name="carrer"]').val(),$('input[name="codi-postal"]').val());
+                $('#parquings-trobats span').html(aparcaments.length);
+            });
+            /* Act on the event */
+        });
+    /*
+        
         var aparcaments = [
             {"id":1,
              "nombre":"ParkingA",
@@ -80,7 +99,21 @@
              "places":7
             }
         ];
-        
+        */
+       
+       function limpiarMapa(){
+           for(i = 0; i < markers.length; i++){
+               markers[i].setMap(null);
+           }
+           markers = [];
+       }
+       
+       
+       /**
+        * Mètode que obté un objecte Javascript per id d'aparcament.
+        * @param {id} id Aparcament
+        * @returns {aparcament}
+        */
         function getAparcament(id){
             for(i = 0; i < aparcaments.length; i++){
                 if(aparcaments[i].id === id){
@@ -110,7 +143,7 @@
                     var devCenter = new google.maps.LatLng(lat,lng);
                     map.setCenter(devCenter);
                     map.setZoom(16);
-                    insereixAparcaments();
+                    //insereixAparcaments();
                 });
                 google.maps.event.addListener(map, 'click',function(e){
                     console.log(e.latLng.toString());
@@ -159,12 +192,14 @@
          * 
          */
         function insereixParquing(aparcament){
+            console.log(aparcament);
             //Creem el marker amb les dades del aparcament
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(aparcament.lat, aparcament.lng),
                 title:aparcament.nombre,
                 icon:getIcon(aparcament.places)
             });
+            markers.push(marker);
             marker.setMap(map); //afegim el marker al map.
            
             google.maps.event.addListener(marker, 'click', function() {
@@ -189,25 +224,56 @@
                 //console.log(aparcamentSeleccionat);
             });
         }
-        function getLatLng(carrer){
+        function movingToStreet(carrer,codiPostal){
             var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({
-                        'address':carrer,
-                        'region':'ES'
-                    },
-                    function(results, status){
-                        if(status === google.maps.GeocoderStatus.OK){
-                            var markerCarrer = new google.maps.Marker({
-                                       position:results[0].geometry.location
-                                   }
-                            );
-                            markerCarrer.setMap(map);
-                            map.setCenter(results[0].geometry.location);
+            if(codiPostal){
+                geocoder.geocode({
+                            'address':carrer,
+                            'region':'es',
+                            'componentRestrictions': {'country': 'ES','administrativeArea':'Barcelona','postalCode':codiPostal}
+                        },
+                        function(results, status){
+                            console.log(results);
+                            if(status === google.maps.GeocoderStatus.OK){
+                                if(results.length > 0 ){
+                                    var markerCarrer = new google.maps.Marker({
+                                                position:results[0].geometry.location
+                                            }
+                                    );
+                                    markers.push(markerCarrer);
+                                    markerCarrer.setMap(map);
+                                    map.setCenter(results[0].geometry.location);
+                                    map.setZoom(16);
+                                }
+                            }
                         }
-                    }
-            );
+                );
+            }else{
+                    geocoder.geocode({
+                            'address':carrer,
+                            'region':'es',
+                            'componentRestrictions': {'country': 'ES','administrativeArea':'Barcelona'}
+                        },
+                        function(results, status){
+                            //console.log(results);
+                            if(status === google.maps.GeocoderStatus.OK){
+                                if(results.length > 0 ){
+                                    var markerCarrer = new google.maps.Marker({
+                                                position:results[0].geometry.location
+                                            }
+                                    );
+                                    markers.push(markerCarrer);
+                                    markerCarrer.setMap(map);
+                                    map.setCenter(results[0].geometry.location);
+                                    map.setZoom(16);
+                                }
+                            }
+                        }
+                );
+            }
+            
         }
-        getLatLng("Doctor Pages Santa Coloma");
+        //getLatLng("Doctor Pages Santa Coloma");
         
     </script>
 </html>
