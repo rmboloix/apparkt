@@ -6,12 +6,16 @@ import apparkt.Admin;
 import apparkt.Aparcament;
 import apparkt.Placa;
 import apparkt.Reserva;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import utilitatsBD.LogSupport;
 import utilitatsBD.UtilitatPersistenciaException;
 
@@ -234,10 +238,14 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
     }
 
     @Override
-    public List<Reserva> obtenirReservesDunUsuari(String dni) throws UtilitatPersistenciaException {
-        Query qry;
-
-        qry = em.createQuery("Select r from Reserva r where r.usuari.dni = :dni");
+    public List<Reserva> obtenirReservesDunUsuari(String dni, boolean vigents) throws UtilitatPersistenciaException {
+        Query qry = null;
+        
+        if (vigents) {
+            qry = em.createQuery("Select r from Reserva r where r.usuari.dni = :dni and r.passada=false and r.anulada=false and r.utilitzada=false");
+        } else {
+            qry = em.createQuery("Select r from Reserva r where r.usuari.dni = :dni");
+        }
         qry.setParameter("dni", dni);
 
         return (List<Reserva>) qry.getResultList();
@@ -246,8 +254,9 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
     @Override
     public List<Reserva> obtenirReservesDunAparcament(int idAparcament) throws UtilitatPersistenciaException {
         Query qry;
-
-        qry = em.createQuery("Select r from Reserva r where r.aparcament.idAparcament = :idAparcament");
+        
+        //qry = em.createQuery("Select r from Reserva r where r.aparcament.idAparcament = :idAparcament");
+        qry = em.createQuery("Select r from Reserva r where r.placa.aparcament.idAparcament = :idAparcament");
         qry.setParameter("idAparcament", idAparcament);
 
         return (List<Reserva>) qry.getResultList();
@@ -311,9 +320,81 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
             throw new UtilitatPersistenciaException(e.getMessage());
         }
         if(resultat==null){
-            throw new UtilitatPersistenciaException("L'objecte no existeix a la base de dades");
+            //throw new UtilitatPersistenciaException("L'objecte no existeix a la base de dades");
+            return resultat;
         }else{
             return resultat;            
         }
     }    
+
+    @Override
+    public Reserva obtenirReservaPerMatricula (String matricula, int idAparcament, Timestamp data) throws UtilitatPersistenciaException {
+        Reserva res = null;
+        Query qry;
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(data.getTime());
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Timestamp inici = new Timestamp(cal.getTime().getTime());
+        cal.add(Calendar.HOUR, 23);
+        cal.add(Calendar.MINUTE, 59);
+        cal.add(Calendar.SECOND, 59);
+        cal.add(Calendar.MILLISECOND, 0);
+        Timestamp fi = new Timestamp (cal.getTime().getTime());
+
+        qry = em.createQuery("Select r from Reserva r where r.usuari.matricula = :matricula "
+                + "and r.placa.aparcament.idAparcament = :idAparcament and r.anulada = false "
+                + "and r.hora_inici between :inici and :fi");
+        qry.setParameter("matricula", matricula);
+        qry.setParameter("idAparcament", idAparcament);
+        qry.setParameter("inici", inici);
+        qry.setParameter("fi", fi);
+
+        try {
+            res = (Reserva) qry.getSingleResult();
+        } catch (javax.persistence.NoResultException ex) {
+
+        }
+        return res;
+    }
+    
+    @Override
+    public void enregistraEntrada(String matricula, int idAparcament, Timestamp hora_inici_real) throws UtilitatPersistenciaException {
+        Reserva res = obtenirReservaPerMatricula(matricula, idAparcament, hora_inici_real);
+        res.setHora_inici_real(hora_inici_real);
+        res.setUtilitzada(Boolean.TRUE);
+        gestionaModificacio(res);
+    }
+
+    @Override
+    public void enregistraSortida(String matricula, int idAparcament, Timestamp hora_fi_real) throws UtilitatPersistenciaException {
+        Reserva res = obtenirReservaPerMatricula(matricula, idAparcament, hora_fi_real);
+        res.setHora_fi_real(hora_fi_real);
+        res.setPassada(Boolean.TRUE);
+        gestionaModificacio(res);
+    }
+
+    @Override
+    public List<Object[]> obtenirPlacesDisponibles(Timestamp entrada, Timestamp sortida) throws UtilitatPersistenciaException {
+        List<Object[]> disponibles = null;
+        Query qry;
+
+        qry = em.createQuery("Select p.aparcament.idAparcament, count (p.numero) from Placa p where p.idplaca not in "
+                + "(Select r.placa.idplaca from Reserva r where ((:entrada between r.hora_inici AND r.hora_fi) OR "
+                + "(:sortida between r.hora_inici AND r.hora_fi)) AND (r.utilitzada=false)AND(r.passada=false) AND "
+                + "(r.anulada=false)) group by p.aparcament.idAparcament order by p.aparcament.idAparcament");
+        qry.setParameter("entrada", entrada);
+        qry.setParameter("sortida", sortida);
+
+        try {
+            disponibles = (List<Object[]>) qry.getResultList();
+        } catch (javax.persistence.NoResultException ex) {
+            
+        }
+
+        return disponibles;
+    }
 }

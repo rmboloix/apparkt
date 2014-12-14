@@ -45,8 +45,8 @@ public class Aparcament implements Serializable {
     private Zona zona;
     @OneToMany(mappedBy = "aparcament", cascade={CascadeType.ALL}, fetch= FetchType.LAZY)
     private List<Placa> llistaPlacas;
-    @OneToMany(mappedBy = "aparcament", cascade={CascadeType.ALL}, fetch= FetchType.LAZY)
-    private List<Reserva> llistaReserves;
+//    @OneToMany(mappedBy = "aparcament", cascade={CascadeType.ALL}, fetch= FetchType.LAZY)
+//    private List<Reserva> llistaReserves;
 
     /**
      * Constructor per defecte
@@ -256,13 +256,13 @@ public class Aparcament implements Serializable {
         this.llistaPlacas = llistaPlacas;
     }
 
-    public List getLlistaReserves() {
-        return llistaReserves;
-    }
-
-    public void setLlistaReserves(List llistaReserves) {
-        this.llistaReserves = llistaReserves;
-    }
+//    public List getLlistaReserves() {
+//        return llistaReserves;
+//    }
+//
+//    public void setLlistaReserves(List llistaReserves) {
+//        this.llistaReserves = llistaReserves;
+//    }
 
     public double getLatitud() {
         return latitud;

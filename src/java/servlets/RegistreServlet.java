@@ -60,7 +60,7 @@ public class RegistreServlet extends HttpServlet {
                 c.setTelefon(Integer.parseInt(request.getParameter("telefon")));
                 c.seteMail(request.getParameter("email"));
                 c.setPoblacio(pobl);
-                c.setProvincia(p.getNom());
+                //c.setProvincia(p.getNom());
 
                 u.setContacte(c);
 

@@ -2,6 +2,7 @@ package Persistencia;
 
 import utilitatsBD.UtilitatPersistenciaException;
 import apparkt.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -204,6 +205,21 @@ public interface GestorPersistencia {
     Reserva obtenirReserva (int idReserva) throws UtilitatPersistenciaException;
     
     /**
+     * Obte una instancia persistent (emmagatzemada a la base de dades) de
+     * Reserva, identificada amb la matricula que es passa per parametre i pertanyent
+     * a l'aparcament identificat amb idAparcament.
+     *
+     * @param matricula matricula que identifica l'entitat que es desitja
+     * recuperar
+     * @param idAparcament en el qual està feta la reserva.
+     * @param data data de la reserva.
+     * @return Instancia de l'entitat recuperada amb les dades emmagatzemades.
+     * @throws UtilitatPersistenciaException si no existeix cap instancia amb el
+     * idreserva assenyalat pel parametre o si es produeix un error al SGBD
+     */
+    Reserva obtenirReservaPerMatricula (String matricula, int idAparcament, Timestamp data) throws UtilitatPersistenciaException;
+    
+    /**
      * Obte una instancia persistent (emmagatzemada a la base de dades) de Placa, 
      * identificada amb el idplaca que es passa per parametre. 
      * @param idPlaca idplaca que identifica l'entitat que es desitja recuperar
@@ -236,16 +252,29 @@ public interface GestorPersistencia {
      * @throws UtilitatPersistenciaException si es produeix un error al SGBD
      */    
     List <Placa> obtenirPlacesDunAparcament(int idAparcament) throws UtilitatPersistenciaException;
+    
+    /**
+     * Obte la llista de totes les instancies persistents (emmagatzemades a la base de dades) de Placa, disponibles
+     * per reservar en el període d'hores sol·licitades per l'usuari.
+     * @param entrada objecte timestamp que determina l'entrada sol·licitada per l'usuari.
+     * @param sortida objecte timestamp que determina la sortida sol·licitada per l'usuari.
+     * @return llista de totes les instancies persistents (emmagatzemades a la base de dades) de Placa, disponibles
+     * per reservar en el període d'hores sol·licitades per l'usuari.
+     * @throws UtilitatPersistenciaException si es produeix un error al SGBD
+     */    
+    List<Object[]> obtenirPlacesDisponibles (Timestamp entrada, Timestamp sortida) throws UtilitatPersistenciaException;
 
     /**
      * Obte la llista de totes les instancies persistents (emmagatzemades a la base de dades) de Reserva, pertanyents
      * a la instància d' Usuari identificat amb el dni que es passa per parametre.
      * @param dni dni que identifica l'entitat Usuari del que es desitja recuperar les reserves
+     * @param vigents si el valor és true, només mostrarà les vigents, en cas de fals, mostrarà totes les seves reserves
+     * realitzades en qualsevol moment, estiguin vigents o no.
      * @return llista de totes les instancies persistents (emmagatzemades a la base de dades) de Reserva, pertanyents
      * a la instància d' Usuari identificat amb el dni que es passa per parametre.
      * @throws UtilitatPersistenciaException si es produeix un error al SGBD
      */     
-    List <Reserva> obtenirReservesDunUsuari(String dni) throws UtilitatPersistenciaException;
+    List <Reserva> obtenirReservesDunUsuari(String dni, boolean vigents) throws UtilitatPersistenciaException;
     
     /**
      * Obte la llista de totes les instancies persistents (emmagatzemades a la base de dades) de Reserva, pertanyents
@@ -255,5 +284,28 @@ public interface GestorPersistencia {
      * a la instància d' Aparcament identificat amb el idaparcament que es passa per parametre.
      * @throws UtilitatPersistenciaException si es produeix un error al SGBD
      */    
-    List <Reserva> obtenirReservesDunAparcament(int idAparcament) throws UtilitatPersistenciaException; 
+    List <Reserva> obtenirReservesDunAparcament(int idAparcament) throws UtilitatPersistenciaException;
+    
+    /**
+     * Modifica una reserva, identificada amb la matricula i al aparcament identificat amb idAparcament, 
+     * tot enregistrant l'hora d'arribada al pàrquing.
+     * @param matricula matricula del vehicle
+     * @param idAparcament idaparcament que identifica l'entitat Aparcament on està feta la reserva
+     * @param hora_inici_real hora d'arribada al pàrquing.
+     * @throws UtilitatPersistenciaException si es produeix un error al SGBD
+     */
+    void enregistraEntrada(String matricula, int idAparcament, java.sql.Timestamp hora_inici_real) throws UtilitatPersistenciaException;
+    
+    /**
+     * Modifica una reserva, identificada amb la matricula i al aparcament
+     * identificat amb idAparcament, tot enregistrant l'hora de sortida al
+     * pàrquing.
+     *
+     * @param matricula matricula del vehicle
+     * @param idAparcament idaparcament que identifica l'entitat Aparcament on
+     * està feta la reserva
+     * @param hora_fi_real hora de sortida del pàrquing.
+     * @throws UtilitatPersistenciaException si es produeix un error al SGBD
+     */
+    void enregistraSortida(String matricula, int idAparcament, java.sql.Timestamp hora_fi_real) throws UtilitatPersistenciaException;
 }

@@ -27,9 +27,9 @@ public class Reserva implements Serializable {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="idplaca", referencedColumnName="idplaca")
     private Placa placa;
-    @ManyToOne
-    @JoinColumn(name="idaparcament", referencedColumnName="idaparcament")
-    private Aparcament aparcament;
+//    @ManyToOne
+//    @JoinColumn(name="idaparcament", referencedColumnName="idaparcament")
+//    private Aparcament aparcament;
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="dni", referencedColumnName="dni")
     private Usuari usuari;
@@ -139,12 +139,12 @@ public class Reserva implements Serializable {
     
     @Override
     public String toString() {
-        if (utilitzada==null) {
-            return idReserva+" "+placa.getIdplaca()+" "+aparcament.getIdAparcament()+" "+usuari.getDni()
+        if ((hora_inici_real==null)||(hora_fi_real==null)) {
+            return idReserva+" "+placa.getIdplaca()/*+" "+aparcament.getIdAparcament()*/+" "+usuari.getDni()
                 +" "+usuari.getMatricula()+" "+hora_inici.toString()+" "+hora_fi.toString()+" "+utilitzada
                 +" "+hora_inici_real+" "+hora_fi_real+" "+preu+" "+passada+" "+anulada;
         } else {
-            return idReserva+" "+placa.getIdplaca()+" "+aparcament.getIdAparcament()+" "+usuari.getDni()
+            return idReserva+" "+placa.getIdplaca()/*+" "+aparcament.getIdAparcament()*/+" "+usuari.getDni()
                 +" "+usuari.getMatricula()+" "+hora_inici.toString()+" "+hora_fi.toString()+" "+utilitzada
                 +" "+hora_inici_real.toString()+" "+hora_fi_real.toString()+" "+preu+" "+passada+" "+anulada;
         }        
