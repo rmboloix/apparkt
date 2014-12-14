@@ -10,9 +10,12 @@ import Persistencia.GestorPersistenciaJPA;
 import apparkt.Aparcament;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,97 +40,82 @@ public class ReservaServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         GestorPersistencia db = new GestorPersistenciaJPA("UnitatDePersistenciaAmbJpa");
-        PrintWriter out = null;    
-        try{
-            db.iniciar();
-            db.obrir();
-            out = response.getWriter();
-            
-            Calendar cal = Calendar.getInstance();
-            cal.set(2014, 12, 18, 12, 30);
-            java.sql.Timestamp time = new java.sql.Timestamp(cal.getTime().getTime());
-            
-//            String data = request.getParameter("data");
-//            String horaInici = request.getParameter("horaInici");
-//            String horaFi = request.getParameter("horaFi");
+        if(request.getParameter("acc").equals("buscar")){
+            String fData = request.getParameter("data");
+            String fHoraEntrada = request.getParameter("horaInici");
+            String fHoraSortida = request.getParameter("horaFi");
+            //Data
+            String[] sData = fData.split("-");
+            int any = Integer.parseInt(sData[0]);
+            int mes = Integer.parseInt(sData[1]) - 1;
+            int dia = Integer.parseInt(sData[2]);
+            //Hora entrada
+            String[] sHoraEntrada = fHoraEntrada.split(":");
+            int horaEntrada = Integer.parseInt(sHoraEntrada[0]);
+            int minutoEntrada = Integer.parseInt(sHoraEntrada[1]);
+            //Hora sortida
+            String[] sHoraSortida = fHoraSortida.split(":");
+            int horaSortida = Integer.parseInt(sHoraSortida[0]);
+            int minutoSortida = Integer.parseInt(sHoraSortida[1]);
+            //Timestamp Entrada
+            Calendar cal = new GregorianCalendar(any, mes, dia, horaEntrada, minutoEntrada);
+            java.sql.Timestamp tsEntrada = new java.sql.Timestamp(cal.getTime().getTime());
+            //Timestamp Sortida
+            cal = new GregorianCalendar(any, mes, dia, horaSortida, minutoSortida);
+            java.sql.Timestamp tsSortida = new java.sql.Timestamp(cal.getTime().getTime());
 
-            List<Aparcament> aparcaments = new ArrayList<>();
-            
-            Aparcament AparcamentA = db.obtenirAparcament(1);
-            Aparcament AparcamentB = db.obtenirAparcament(2);
-            Aparcament AparcamentC = db.obtenirAparcament(3);
-            
-            aparcaments.add(AparcamentA);
-            aparcaments.add(AparcamentB);
-            aparcaments.add(AparcamentC);
-            
-            StringBuilder json = new StringBuilder();
-            json.append("[");
-            int index = 0; 
-            for(Aparcament ap : aparcaments){
-                json.append("{");
-                json.append("\"id\":");
-                json.append(ap.getIdAparcament());
-                json.append(",");
-                json.append("\"nombre\":\"");
-                json.append(ap.getNom());
-                json.append("\",");
-                json.append("\"lat\":");
-                json.append(ap.getLatitud());
-                json.append(",");
-                json.append("\"lng\":");
-                json.append(ap.getLongitud());
-                json.append(",");
-                json.append("\"places\":");
-                json.append(ap.getLlistaPlacas().size());
-                json.append("}");
-                if(index < aparcaments.size() -1){json.append(",");}
-                index++;
+            //Búsqueda de parquins per ajax.
+            PrintWriter out = null;    
+            try{
+                db.iniciar();
+                db.obrir();
+                out = response.getWriter();
+                //List<Aparcament> aparcaments = new ArrayList<>();
+                Map<Aparcament,  Long> placesYAparcaments = new HashMap<>();
+                List<Object[]> places = db.obtenirPlacesDisponibles(tsEntrada, tsSortida);
+                for(Object[] obj :places){
+                    Aparcament aparcament = db.obtenirAparcament((int)obj[0]);
+                    placesYAparcaments.put(aparcament, (long)obj[1]); //Aparcament, places lliures
+                }
+
+                StringBuilder json = new StringBuilder();
+                json.append("[");
+                int index = 0; 
+                Iterator iterator = placesYAparcaments.entrySet().iterator();
+                while (iterator.hasNext()) {
+                        Map.Entry mapEntry = (Map.Entry) iterator.next();
+                        Aparcament ap = (Aparcament)mapEntry.getKey();
+                        long placesLliures = (long)mapEntry.getValue();
+                        json.append("{");
+                        json.append("\"id\":");
+                        json.append(ap.getIdAparcament());
+                        json.append(",");
+                        json.append("\"nombre\":\"");
+                        json.append(ap.getNom());
+                        json.append("\",");
+                        json.append("\"lat\":");
+                        json.append(ap.getLatitud());
+                        json.append(",");
+                        json.append("\"lng\":");
+                        json.append(ap.getLongitud());
+                        json.append(",");
+                        json.append("\"places\":");
+                        json.append(placesLliures);
+                        json.append("}");
+                        if(index < placesYAparcaments.size() -1){json.append(",");}
+                        index++;
+                }
+                json.append("]");
+                out.println(json.toString());
+
+            }catch(Exception ex){
+                System.err.println("Error proceso búsqueda de parquings: "+ex);
+                ex.printStackTrace();
             }
-            json.append("]");
-            out.println(json.toString());
-//            System.out.println(AparcamentA+" "+AparcamentB+" "+AparcamentC);
-//            out.println("[\n" +
-//"            {\"id\":1,\n" +
-//"             \"nombre\":\"ParkingA\",\n" +
-//"             \"lat\":41.45125089473105,\n" +
-//"             \"lng\": 2.2157567739486694,\n" +
-//"             \"places\":2\n" +
-//"            },\n" +
-//"            {\"id\":2,\n" +
-//"             \"nombre\":\"ParkingB\",\n" +
-//"             \"lat\":41.45026656994247,\n" +
-//"             \"lng\": 2.212838160821531,\n" +
-//"             \"places\":21\n" +
-//"            },\n" +
-//"            {\"id\":3,\n" +
-//"             \"nombre\":\"ParkingC\",\n" +
-//"             \"lat\":41.44957824763211,\n" +
-//"             \"lng\": 2.214941382408142,\n" +
-//"             \"places\":41},\n" +
-//"            { \n" +
-//"             \"id\":4,\n" +
-//"             \"nombre\":\"ParkingD\",\n" +
-//"             \"lat\":41.448259399320726,\n" +
-//"             \"lng\": 2.213396430015564,\n" +
-//"             \"places\":7\n" +
-//"            }\n" +
-//"        ]");
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet ReservaServlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet ReservaServlet at " + request.getContextPath() + "</h1>");
-//            out.println(request.getParameter("hora-inici"));
-//            out.println(request.getParameter("hora-fi"));
-//            out.println(request.getParameter("data"));
-//            out.println("</body>");
-//            out.println("</html>");
-        }catch(Exception ex){
-            System.err.println("Error Reserva: "+ex);
+        }else{
+            //Procés de reserva
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

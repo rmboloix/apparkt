@@ -16,13 +16,18 @@
             <div id="form-buscador">
                 <p class="benvingut">Buscar</p>
                 <form id="form-buscar-reserva" action="<%=request.getContextPath()%>/ReservaServlet" method="post">
-                    <input type="hidden" name="acc" value="buscar" />
-                    <input type="text" name="carrer" placeholder="Carrer"/>
-                    <input type="text" name="data" placeholder="Data"/>
-                    <input type="text" name="hora-entrada" placeholder="Hora entrada"/>
-                    <input type="text" name="hora-sortida" placeholder="Hora sortida"/>
-                    <input type="text" name="codi-postal" placeholder="Codi postal"/>
-                    <input id="submit-buscar-reserva" type="submit" value="Buscar"/>
+                    <label for="form-carrer">Carrer</label>
+                    <input type="text" name="carrer" id="form-carrer"/>
+                    <label for="form-codi-postal">Codi Postal</label>
+                    <input type="text" name="codi-postal" id="form-codi-postal"/>
+                    <label for="form-carrer">Data</label>
+                    <input type="date" name="data" id="form-data"/>
+                    <label for="form-hora-entrada">Hora entrada</label>
+                    <input type="time" name="hora-entrada" id="form-hora-entrada"/>
+                    <label for="form-hora-sortida">Hora sortida</label>
+                    <input type="time" name="hora-sortida" id="form-hora-sortida"/>
+                    <input id="submit-buscar-reserva" type="submit" value="Buscar Aparcaments"/>
+                    <div class="clearer"></div>
                 </form>
             </div>
         </div>
@@ -60,7 +65,8 @@
             $.post('/Apparkt/ReservaServlet', {
                     'horaInici': $('input[name="hora-entrada"]').val(), 
                     'horaFi':$('input[name="hora-sortida"]').val(),
-                    'data':$('input[name="data"]').val() 
+                    'data':$('input[name="data"]').val(),
+                    'acc':'buscar'
             }, function(data) {
                 limpiarMapa();
                 console.log(data);
