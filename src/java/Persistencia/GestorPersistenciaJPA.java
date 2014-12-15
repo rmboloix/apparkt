@@ -397,4 +397,29 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
 
         return disponibles;
     }
+
+    @Override
+    public Placa obtenirPlacaPerReserva(Timestamp entrada, Timestamp sortida, int idAparcament) throws UtilitatPersistenciaException {
+        Placa placaLliure = null;
+        List <Placa> places = null;
+        
+        Query qry;
+        
+        qry = em.createQuery("Select p from Placa p where p.idplaca not in "
+                + "(Select r.placa.idplaca from Reserva r where ((:entrada between r.hora_inici AND r.hora_fi) OR "
+                + "(:sortida between r.hora_inici AND r.hora_fi)) AND (r.utilitzada=false)AND(r.passada=false) AND "
+                + "(r.anulada=false)) AND p.aparcament.idAparcament =:idAparcament order by p.idplaca");
+        qry.setParameter("entrada", entrada);
+        qry.setParameter("sortida", sortida);
+        qry.setParameter("idAparcament", idAparcament);
+
+        try {
+            places = (List<Placa>) qry.setMaxResults(1).getResultList();
+        } catch (javax.persistence.NoResultException ex) {
+            
+        }
+        placaLliure = places.get(0);
+        System.out.println(placaLliure.toString());
+        return placaLliure;
+    }
 }

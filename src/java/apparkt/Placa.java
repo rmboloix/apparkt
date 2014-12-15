@@ -86,7 +86,7 @@ public class Placa implements Serializable {
     
     @Override
     public String toString() {
-        return idplaca+" "+aparcament.getIdAparcament()+" "+planta+" "+numero+" "+tipusplaca
-                +" "+activa;
+        return "idPlaça= "+idplaca+", idAparcament= "+aparcament.getIdAparcament()+", planta= "+planta+
+                ", numero de Plaça= "+numero+", tipus de Plaça= "+tipusplaca+", activa= "+activa;
     }
 }
