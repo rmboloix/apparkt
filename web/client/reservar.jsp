@@ -77,16 +77,19 @@
             });
         });
         $('#btn-reserva').on('click', function(event) {
+            var id_aparcament = aparcamentSeleccionat.id;
             event.preventDefault();
+            
             $.post('/Apparkt/ReservaServlet', {
-                    'horaInici': $('#hora-entrada-parquing').val(), 
-                    'horaFi':$('#hora-salida-parquing').val(),
-                    'data':$('#dia-parquing').val(),
-                    'idAparcament':aparcamentSeleccionat.id,
+                    'horaInici': $('#hora-entrada-parquing').html(), 
+                    'horaFi':$('#hora-salida-parquing').html(),
+                    'data':$('#dia-parquing').html(),
+                    'idAparcament':id_aparcament,
                     'acc':'reservar'
             }, function(data) {
                 console.log(data);
             });
+            
         });
     /*
         
