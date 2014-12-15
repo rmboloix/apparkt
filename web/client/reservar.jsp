@@ -4,6 +4,7 @@
     Author     : Rafael Mateo Boloix
 --%>
 
+<%@page import="apparkt.Usuari"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="t" %>
 <!DOCTYPE html>
@@ -38,17 +39,13 @@
         </div>
         <div class="col-md-3">
             <div id="form-reserva">
-                <p class="benvingut">Resumen reserva</p>
-                <form action="<%=request.getContextPath()%>/ReservaServlet" method="post">
-                    <p id="nombre-parquing">Carrer</p>
-                    <p id="dia-parquing">12 Enero 2014</p>
-                    <p id="hora-entrada-parquing">21:00</p>
-                    <p id="hora-salida-parquing">22:00</p>
-                    <input type="submit" value="Realitzar Reserva"/>
-                </form>
-                
+                <p class="benvingut">Confirmar reserva</p>
+                <p>Parquing: <span id="nombre-parquing"></span></p>
+                <p>Data: <span id="dia-parquing"></span></p>
+                <p>Hora entrada: <span id="hora-entrada-parquing"></span></p>
+                <p>Hora sortida: <span id="hora-salida-parquing"></span></p>
+                <button id="btn-reserva">Realitzar Reserva</button>
             </div>
-            
         </div>
     </article>
     <%@include file="../WEB-INF/jspf/footer.jspf" %>
@@ -74,8 +71,22 @@
                 insereixAparcaments();
                 movingToStreet($('input[name="carrer"]').val(),$('input[name="codi-postal"]').val());
                 $('#parquings-trobats span').html(aparcaments.length);
+                $('#dia-parquing').text($('input[name="data"]').val());
+                $('#hora-entrada-parquing').text($('input[name="hora-entrada"]').val());
+                $('#hora-salida-parquing').text($('input[name="hora-sortida"]').val());
             });
-            /* Act on the event */
+        });
+        $('#btn-reserva').on('click', function(event) {
+            event.preventDefault();
+            $.post('/Apparkt/ReservaServlet', {
+                    'horaInici': $('#hora-entrada-parquing').val(), 
+                    'horaFi':$('#hora-salida-parquing').val(),
+                    'data':$('#dia-parquing').val(),
+                    'idAparcament':aparcamentSeleccionat.id,
+                    'acc':'reservar'
+            }, function(data) {
+                console.log(data);
+            });
         });
     /*
         
@@ -213,11 +224,13 @@
                 if(aparcamentSeleccionat === undefined){ //No hay cap seleccionat
                     //Marcador nou seleccionat
                     aparcamentSeleccionat = aparcament;
+                    $('#nombre-parquing').text(aparcament.nombre);
                     markerSelected = marker;
                     marker.setIcon('../img/p-logo-map-selected.png');
                 }else if(aparcamentSeleccionat === aparcament){ //deseleccionem el marcador
                     aparcamentSeleccionat = undefined;
                     marker.setIcon(getIcon(aparcament.places));
+                    $('#nombre-parquing').text("");
                     markerSelected = undefined;
                 }else{    
                     //Si ja habia un altre escollit.
@@ -226,6 +239,7 @@
                     marker.setIcon('../img/p-logo-map-selected.png');
                     markerSelected = marker;
                     aparcamentSeleccionat = aparcament;
+                    $('#nombre-parquing').text(aparcament.nombre);
                 }
                 //console.log(aparcamentSeleccionat);
             });

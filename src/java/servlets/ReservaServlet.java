@@ -8,6 +8,7 @@ package servlets;
 import Persistencia.GestorPersistencia;
 import Persistencia.GestorPersistenciaJPA;
 import apparkt.Aparcament;
+import apparkt.Usuari;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
@@ -112,8 +113,10 @@ public class ReservaServlet extends HttpServlet {
                 System.err.println("Error proceso búsqueda de parquings: "+ex);
                 ex.printStackTrace();
             }
-        }else{
+        }else if(request.getParameter("acc").equals("reservar")){
             //Procés de reserva
+            Usuari usuari = (Usuari)request.getSession().getAttribute("usuari");
+            
         }
         
     }
