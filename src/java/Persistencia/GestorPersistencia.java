@@ -263,6 +263,18 @@ public interface GestorPersistencia {
      * @throws UtilitatPersistenciaException si es produeix un error al SGBD
      */    
     List<Object[]> obtenirPlacesDisponibles (Timestamp entrada, Timestamp sortida) throws UtilitatPersistenciaException;
+    
+    /**
+     * Obte la primera instancia persistent (emmagatzemada a la base de dades) de Placa lliure, 
+     * en el aparcament identificat amb el idAparcament que es passa per parametre. 
+     * @param entrada objecte timestamp que determina l'entrada sol·licitada per l'usuari.
+     * @param sortida objecte timestamp que determina la sortida sol·licitada per l'usuari.
+     * @param idAparcament idAparcament que identifica el aparcament d'on agafarem la primera plaça lliure.
+     * @return la primera instancia persistent (emmagatzemada a la base de dades) de Placa lliure, 
+     * en el aparcament identificat amb el idAparcament que es passa per parametre.
+     * @throws UtilitatPersistenciaException si es produeix un error al SGBD
+     */    
+    Placa obtenirPlacaPerReserva (Timestamp entrada, Timestamp sortida, int idAparcament) throws UtilitatPersistenciaException;
 
     /**
      * Obte la llista de totes les instancies persistents (emmagatzemades a la base de dades) de Reserva, pertanyents

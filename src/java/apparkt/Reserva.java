@@ -33,6 +33,7 @@ public class Reserva implements Serializable {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="dni", referencedColumnName="dni")
     private Usuari usuari;
+    private String matricula;
     private java.sql.Timestamp hora_inici;
     private java.sql.Timestamp hora_fi;
     private Boolean utilitzada;
@@ -59,6 +60,14 @@ public class Reserva implements Serializable {
 
     public Usuari getUsuari() {
         return usuari;
+    }
+    
+    public String getMatricula() {
+        return this.matricula;
+    }
+    
+    public void setMatricula(String matricula) {
+        this.matricula=matricula;
     }
 
     public void setUsuari(Usuari usuari) {
