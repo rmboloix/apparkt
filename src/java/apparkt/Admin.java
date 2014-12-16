@@ -13,6 +13,11 @@ import javax.persistence.OneToMany;
 @Entity
 @DiscriminatorValue(value="Admin")
 public class Admin extends Persona {
+
+    public List<Aparcament> getAparcaments() {
+        return aparcaments;
+    }
+
     private static final long serialVersionUID = 1L;
     @OneToMany(mappedBy = "admin")
     private List<Aparcament> aparcaments;
@@ -42,5 +47,7 @@ public class Admin extends Persona {
     public void administraAparcament (Aparcament aparcament){
         
     }
+    
+    
 
 }

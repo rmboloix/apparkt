@@ -27,7 +27,7 @@ public class Prueba {
             db.obrir();
             //System.out.println(db.obtenirPersona("46942299N"));
             
-            /*TESTEJAR ENTRADA I SORTIDA DE COTXES ********************************
+            //TESTEJAR ENTRADA I SORTIDA DE COTXES ********************************
             Timestamp hora_entrada = new Timestamp(new java.util.Date().getTime());
             Timestamp hora_sortida = new Timestamp(new java.util.Date().getTime()+300000);
             
@@ -36,10 +36,10 @@ public class Prueba {
             System.out.println(db.obtenirReservaPerMatricula("1111AAA", 3, hora_entrada));
             db.enregistraSortida("1111AAA", 3, hora_sortida);
             System.out.println(db.obtenirReservaPerMatricula("1111AAA", 3, hora_entrada));
-            ***************************************************************************/
+            //***************************************************************************/
             
             //TESTEJAR OBTENIR PLACES LLIURES ********************************
-            Timestamp hora_entrada = new Timestamp(new java.util.Date().getTime());
+            /*Timestamp hora_entrada = new Timestamp(new java.util.Date().getTime());
             Timestamp hora_sortida = new Timestamp(new java.util.Date().getTime()+300000);
             
             List<Object[]> disponibles = db.obtenirPlacesDisponibles(hora_entrada, hora_sortida);
@@ -51,7 +51,7 @@ public class Prueba {
             
             
             //TESTEJAR FORMALITZAR RESERVA AMB LA PRIMERA PLAÇA LLIURE AL APARCAMENT SELECCIONAT *
-            Object[] o = disponibles.get(2);
+           /* Object[] o = disponibles.get(2);
             int idAparcament = (Integer) o[0];
 
             Placa placaLliure = db.obtenirPlacaPerReserva(hora_entrada, hora_sortida, idAparcament);
@@ -78,7 +78,26 @@ public class Prueba {
             for (Reserva r: llista) {
                 System.out.println(r.toString());
             }
-            ***************************************************************************/
+            //***************************************************************************/
+            
+            //TESTEJAR ANULAR RESERVA***************************************************
+            //db.anularReserva(4);
+            //***************************************************************************/
+            
+            //TESTEJAR ACTIVA PLAÇA***************************************************
+            //db.activaPlaca(1);
+            //***************************************************************************/
+            
+            //TESTEJAR PLACES LLIURES D'UN APARCAMENT ARA MATEIX**************************
+            //System.out.println("Places lliures: "+db.obtenirPlacesDisponiblesAparcament(3));
+            //***************************************************************************/
+            
+            /*TESTEJAR OBTENIR RESERVES VIGENTS O NO D'UN APARCAMENT*************************
+            List<Reserva> llista = db.obtenirReservesDunAparcament(3, true);
+            for (Reserva r: llista) {
+                System.out.println(r.toString());
+            }
+            //***************************************************************************/
             
             db.tancar();
         } catch (UtilitatPersistenciaException ex) {

@@ -10,12 +10,14 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
 import utilitatsBD.LogSupport;
 import utilitatsBD.UtilitatPersistenciaException;
 
@@ -244,7 +246,7 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
         if (vigents) {
             qry = em.createQuery("Select r from Reserva r where r.usuari.dni = :dni and r.passada=false and r.anulada=false and r.utilitzada=false");
         } else {
-            qry = em.createQuery("Select r from Reserva r where r.usuari.dni = :dni");
+            qry = em.createQuery("Select r from Reserva r where r.usuari.dni = :dni and (r.passada=true or r.anulada=true or r.utilitzada=true)");
         }
         qry.setParameter("dni", dni);
 
@@ -252,11 +254,15 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
     }
 
     @Override
-    public List<Reserva> obtenirReservesDunAparcament(int idAparcament) throws UtilitatPersistenciaException {
+    public List<Reserva> obtenirReservesDunAparcament(int idAparcament, boolean vigents) throws UtilitatPersistenciaException {
         Query qry;
         
-        //qry = em.createQuery("Select r from Reserva r where r.aparcament.idAparcament = :idAparcament");
-        qry = em.createQuery("Select r from Reserva r where r.placa.aparcament.idAparcament = :idAparcament");
+        if (vigents) {
+            qry = em.createQuery("Select r from Reserva r where r.placa.aparcament.idAparcament = :idAparcament and r.passada=false and r.anulada=false and r.utilitzada=false");
+        } else {
+            qry = em.createQuery("Select r from Reserva r where r.placa.aparcament.idAparcament = :idAparcament and (r.passada=true and r.anulada=true and r.utilitzada=true)");
+        }
+        
         qry.setParameter("idAparcament", idAparcament);
 
         return (List<Reserva>) qry.getResultList();
@@ -374,6 +380,10 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
         Reserva res = obtenirReservaPerMatricula(matricula, idAparcament, hora_fi_real);
         res.setHora_fi_real(hora_fi_real);
         res.setPassada(Boolean.TRUE);
+        long duration = hora_fi_real.getTime()-res.getHora_inici_real().getTime();
+        long minuts = TimeUnit.MILLISECONDS.toMinutes(duration);
+        double preu = minuts*0.05;
+        res.setPreu(preu);
         gestionaModificacio(res);
     }
 
@@ -421,5 +431,48 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
         placaLliure = places.get(0);
         System.out.println(placaLliure.toString());
         return placaLliure;
+    }
+
+    @Override
+    public void anularReserva(int idReserva) throws UtilitatPersistenciaException {
+        Reserva res = obtenirReserva(idReserva);
+        res.setAnulada(Boolean.TRUE);
+        modificar(res);
+    }
+
+    @Override
+    public void activaPlaca(int idPlaca) throws UtilitatPersistenciaException {
+        Placa placa = obtenirPlaca(idPlaca);
+        
+        if (placa.isActiva()) {
+            placa.setActiva(false);
+        } else {
+            placa.setActiva(true);
+        }
+        
+        modificar(placa);
+    }
+
+    @Override
+    public long obtenirPlacesDisponiblesAparcament(int idAparcament) throws UtilitatPersistenciaException {
+        java.util.Date date= new java.util.Date();
+        Timestamp ara = new Timestamp(date.getTime());
+        long numPlacesLliures = 0;
+        TypedQuery<Long> qry;
+        
+        qry = em.createQuery("Select count(p.numero) from Placa p where p.idplaca not in "
+                + "(Select r.placa.idplaca from Reserva r where (:ara between r.hora_inici AND r.hora_fi) "
+                + "AND (r.utilitzada=false)AND(r.passada=false) AND "
+                + "(r.anulada=false)) AND p.aparcament.idAparcament =:idAparcament", Long.class);
+        qry.setParameter("ara", ara);
+        qry.setParameter("idAparcament", idAparcament);
+
+        try {
+            numPlacesLliures = qry.getSingleResult();
+        } catch (javax.persistence.NoResultException ex) {
+            
+        }
+        
+        return numPlacesLliures;
     }
 }

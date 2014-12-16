@@ -114,7 +114,7 @@ CREATE TABLE "reserva" (
 
 "hora_fi_real" timestamp DEFAULT NULL,
 
-"preu" numeric(2) DEFAULT NULL,
+"preu" numeric(4,2) DEFAULT NULL,
 
 "passada" bool DEFAULT NULL,
 

@@ -265,6 +265,16 @@ public interface GestorPersistencia {
     List<Object[]> obtenirPlacesDisponibles (Timestamp entrada, Timestamp sortida) throws UtilitatPersistenciaException;
     
     /**
+     * Obté el número de places lliures en el aparcament indicat al idAparcament passat per paràmetre
+     * i en el moment temporal en què es crida el mètode.
+     * @param idAparcament idaparcament que identifica l'entitat aparcament del que es desitja recuperar les places disponibles
+     * @return número de places lliures en el aparcament indicat al idAparcament passat per paràmetre
+     * i en el moment temporal en què es crida el mètode.
+     * @throws UtilitatPersistenciaException si es produeix un error al SGBD
+     */    
+    long obtenirPlacesDisponiblesAparcament (int idAparcament) throws UtilitatPersistenciaException;
+    
+    /**
      * Obte la primera instancia persistent (emmagatzemada a la base de dades) de Placa lliure, 
      * en el aparcament identificat amb el idAparcament que es passa per parametre. 
      * @param entrada objecte timestamp que determina l'entrada sol·licitada per l'usuari.
@@ -281,7 +291,7 @@ public interface GestorPersistencia {
      * a la instància d' Usuari identificat amb el dni que es passa per parametre.
      * @param dni dni que identifica l'entitat Usuari del que es desitja recuperar les reserves
      * @param vigents si el valor és true, només mostrarà les vigents, en cas de fals, mostrarà totes les seves reserves
-     * realitzades en qualsevol moment, estiguin vigents o no.
+     * realitzades en qualsevol moment, sense incloure les vigents.
      * @return llista de totes les instancies persistents (emmagatzemades a la base de dades) de Reserva, pertanyents
      * a la instància d' Usuari identificat amb el dni que es passa per parametre.
      * @throws UtilitatPersistenciaException si es produeix un error al SGBD
@@ -292,11 +302,13 @@ public interface GestorPersistencia {
      * Obte la llista de totes les instancies persistents (emmagatzemades a la base de dades) de Reserva, pertanyents
      * a la instància d' Aparcament identificat amb el idaparcament que es passa per parametre.
      * @param idAparcament idaparcament que identifica l'entitat Aparcament del que es desitja recuperar les reserves
+     * @param vigents si el valor és true, només mostrarà les vigents, en cas de fals, mostrarà totes les seves reserves
+     * realitzades en qualsevol moment, sense incloure les vigents.
      * @return llista de totes les instancies persistents (emmagatzemades a la base de dades) de Reserva, pertanyents
      * a la instància d' Aparcament identificat amb el idaparcament que es passa per parametre.
      * @throws UtilitatPersistenciaException si es produeix un error al SGBD
      */    
-    List <Reserva> obtenirReservesDunAparcament(int idAparcament) throws UtilitatPersistenciaException;
+    List <Reserva> obtenirReservesDunAparcament(int idAparcament, boolean vigents) throws UtilitatPersistenciaException;
     
     /**
      * Modifica una reserva, identificada amb la matricula i al aparcament identificat amb idAparcament, 
@@ -320,4 +332,19 @@ public interface GestorPersistencia {
      * @throws UtilitatPersistenciaException si es produeix un error al SGBD
      */
     void enregistraSortida(String matricula, int idAparcament, java.sql.Timestamp hora_fi_real) throws UtilitatPersistenciaException;
+    
+    /**
+     * Modifica una reserva, identificada amb el idReserva passat per paràmetre, i posa el camp anulada a TRUE.
+     * @param idReserva idReserva que identifica l'entitat Reserva que modificarem.
+     * @throws UtilitatPersistenciaException si es produeix un error al SGBD
+     */
+    void anularReserva(int idReserva) throws UtilitatPersistenciaException;
+    
+    /**
+     * Modifica un objecte persistent Placa, identificada amb el idPlaca passat per paràmetre, 
+     * i posa el camp activa al contrari del que estava. Si estava a FALSE, el posa a TRUE, i al contrari.
+     * @param idPlaca idPlaca que identifica l'entitat Placa que modificarem.
+     * @throws UtilitatPersistenciaException si es produeix un error al SGBD
+     */
+    void activaPlaca(int idPlaca) throws UtilitatPersistenciaException;
 }
