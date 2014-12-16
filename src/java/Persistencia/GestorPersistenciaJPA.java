@@ -6,7 +6,6 @@ import apparkt.Admin;
 import apparkt.Aparcament;
 import apparkt.Placa;
 import apparkt.Reserva;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
@@ -16,9 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
-import utilitatsBD.LogSupport;
 import utilitatsBD.UtilitatPersistenciaException;
 
 /**
@@ -284,7 +281,6 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
        }catch(EntityExistsException e){
            throw new UtilitatPersistenciaException("Hi ha un objecte amb la mateixa clau a la base de dades");
        }catch(Exception e){
-           LogSupport.grava(e);
            throw new UtilitatPersistenciaException(e.getMessage());
        }
     
@@ -310,7 +306,6 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
         }catch(UtilitatPersistenciaException e){
             throw e;
         }catch(Exception e){
-           LogSupport.grava(e);
            throw new UtilitatPersistenciaException(e.getMessage());
         }
     }
@@ -322,7 +317,6 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
             resultat=em.find(classe, clau);
             
         }catch(Exception e){
-            LogSupport.grava(e);
             throw new UtilitatPersistenciaException(e.getMessage());
         }
         if(resultat==null){
