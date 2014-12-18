@@ -32,12 +32,12 @@
                 </form>
             </div>
         </div>
-        <div class="col-md-6" id="cuadre-central">
+        <div class="col-md-6" id="cuadre-mapa">
             <p class="benvingut">Reserva</p>
             <div id="mapDiv" style="width:100%; height:400px;"></div>
             <p id='parquings-trobats'>S'han trobat <span>0</span> parquings</p>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" id="cuadre-confirmar">
             <div id="form-reserva">
                 <p class="benvingut">Confirmar reserva</p>
                 <p>Parquing: <span id="nombre-parquing"></span></p>
@@ -66,14 +66,34 @@
                     'acc':'buscar'
             }, function(data) {
                 limpiarMapa();
+                $('#cuadre-mapa').slideDown();
                 console.log(data);
                 aparcaments = JSON.parse(data);
                 insereixAparcaments();
-                movingToStreet($('input[name="carrer"]').val(),$('input[name="codi-postal"]').val());
                 $('#parquings-trobats span').html(aparcaments.length);
                 $('#dia-parquing').text($('input[name="data"]').val());
                 $('#hora-entrada-parquing').text($('input[name="hora-entrada"]').val());
                 $('#hora-salida-parquing').text($('input[name="hora-sortida"]').val());
+                google.maps.event.trigger(map, "resize");
+                if($('input[name="carrer"]').val() !== ''){
+                    movingToStreet($('input[name="carrer"]').val(),$('input[name="codi-postal"]').val());
+                }else if(navigator.geolocation){
+                     navigator.geolocation.getCurrentPosition(function (position){
+                        var lat = position.coords.latitude;
+                        var lng = position.coords.longitude;
+                        var devCenter = new google.maps.LatLng(lat,lng);
+                        map.setCenter(devCenter);
+                        map.setZoom(16);
+                        //insereixAparcaments();
+                    });
+                    /*
+                    google.maps.event.addListener(map, 'click',function(e){
+                        console.log(e.latLng.toString());
+                    });*/
+                }else{
+                    map.setCenter(barcelona);
+                    map.setZoom(16);
+                }
             });
         });
         $('#btn-reserva').on('click', function(event) {
@@ -91,35 +111,6 @@
             });
             
         });
-    /*
-        
-        var aparcaments = [
-            {"id":1,
-             "nombre":"ParkingA",
-             "lat":41.45125089473105,
-             "lng": 2.2157567739486694,
-             "places":2
-            },
-            {"id":2,
-             "nombre":"ParkingB",
-             "lat":41.45026656994247,
-             "lng": 2.212838160821531,
-             "places":21
-            },
-            {"id":3,
-             "nombre":"ParkingC",
-             "lat":41.44957824763211,
-             "lng": 2.214941382408142,
-             "places":41},
-            { 
-             "id":4,
-             "nombre":"ParkingD",
-             "lat":41.448259399320726,
-             "lng": 2.213396430015564,
-             "places":7
-            }
-        ];
-        */
        
        function limpiarMapa(){
            for(i = 0; i < markers.length; i++){
@@ -230,6 +221,7 @@
                     $('#nombre-parquing').text(aparcament.nombre);
                     markerSelected = marker;
                     marker.setIcon('../img/p-logo-map-selected.png');
+                    $('#cuadre-confirmar').slideDown();
                 }else if(aparcamentSeleccionat === aparcament){ //deseleccionem el marcador
                     aparcamentSeleccionat = undefined;
                     marker.setIcon(getIcon(aparcament.places));
