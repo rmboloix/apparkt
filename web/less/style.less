@@ -108,7 +108,7 @@ header{
     color: red;
 }
 
-#cuadre-central,#form-buscador,#form-reserva{
+#cuadre-central,#form-buscador,#form-reserva,#cuadre-mapa{
     padding: 30px @gap;
     ._borderRadius();
     background: @grisTransparente2;
@@ -133,7 +133,9 @@ header{
     }
 }
 
-
+#cuadre-mapa, #cuadre-confirmar{
+    display: none;
+}
 
 #main-article p.benvingut{
     font-family: @font-Web;
@@ -201,6 +203,32 @@ form.login-form, #form-buscador,#form-reserva{
         padding-left:4px;
         border:none;
         height:26px;
+    }
+}
+
+.reservas{
+    .anulada{
+        text-decoration: line-through;
+    }
+    table{
+        width:100%;
+        background:#ddd;
+        thead{
+            background:cornflowerblue;
+            td{
+                th{
+                }
+            }
+        }
+        td,th{
+            padding:2px 4px;
+        }
+        tbody{
+            tr{
+                td{
+                }
+            }
+        }
     }
 }
 
