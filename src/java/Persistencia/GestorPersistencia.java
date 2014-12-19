@@ -347,4 +347,10 @@ public interface GestorPersistencia {
      * @throws UtilitatPersistenciaException si es produeix un error al SGBD
      */
     void activaPlaca(int idPlaca) throws UtilitatPersistenciaException;
+    
+    /**
+     * Modifica els objectes persistent Reserva que tinguin el camp hora_inici inferior a l'hora actual.
+     * @throws UtilitatPersistenciaException si es produeix un error al SGBD
+     */
+    void actualitzaReserves() throws UtilitatPersistenciaException;
 }

@@ -27,7 +27,7 @@ public class Prueba {
             db.obrir();
             //System.out.println(db.obtenirPersona("46942299N"));
             
-            //TESTEJAR ENTRADA I SORTIDA DE COTXES ********************************
+            /*TESTEJAR ENTRADA I SORTIDA DE COTXES ********************************
             Timestamp hora_entrada = new Timestamp(new java.util.Date().getTime());
             Timestamp hora_sortida = new Timestamp(new java.util.Date().getTime()+300000);
             
@@ -97,6 +97,10 @@ public class Prueba {
             for (Reserva r: llista) {
                 System.out.println(r.toString());
             }
+            //***************************************************************************/
+            
+            //TESTEJAR ACTUALITZA RESERVES **************************************************
+            db.actualitzaReserves();
             //***************************************************************************/
             
             db.tancar();
