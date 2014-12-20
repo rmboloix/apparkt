@@ -47,7 +47,6 @@ public class ReservaServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         GestorPersistencia db = new GestorPersistenciaJPA("UnitatDePersistenciaAmbJpa");
-        System.out.println("ACC"+request.getParameter("acc"));
         if(request.getParameter("acc").equals("buscar") || request.getParameter("acc").equals("reservar")){
             String fData = request.getParameter("data");
             String fHoraEntrada = request.getParameter("horaInici");
@@ -126,7 +125,8 @@ public class ReservaServlet extends HttpServlet {
                     db.iniciar();
                     db.obrir();
                     int idAparcament = Integer.parseInt(request.getParameter("idAparcament"));
-
+                    PrintWriter out = null;  
+                    out = response.getWriter();
                     //Procés de reserva
                     Usuari usuari = (Usuari)request.getSession().getAttribute("usuari");
 
@@ -145,6 +145,7 @@ public class ReservaServlet extends HttpServlet {
                     db.inserir(reserva);
                     db.tancar();
                     System.out.println("Reserva correcta");
+                    out.println("ok");
                 } catch (UtilitatPersistenciaException ex) {
                     System.out.println("Reserva incorrecta");
                 }

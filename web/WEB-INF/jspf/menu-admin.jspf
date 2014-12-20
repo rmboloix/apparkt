@@ -14,7 +14,7 @@
                 <li class="active"><a href="${pageContext.request.contextPath}">Inici</a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/dades-admin.jsp">Les meves dades</a></li>
                 <!--<li><a href="${pageContext.request.contextPath}/root/registre-administrador.jsp">Nou Administrador</a></li>-->
-                <li><a href="${pageContext.request.contextPath}/admin/parquings.jsp">Parquings</a></li>
+                <!--<li><a href="${pageContext.request.contextPath}/admin/parquings.jsp">Parquings</a></li>-->
                 <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
             </ul>
         </nav>

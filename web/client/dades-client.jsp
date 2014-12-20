@@ -15,20 +15,38 @@
 <html>
     <t:head title="Registre de client"/>
     <%@include file="../WEB-INF/jspf/menu-client.jspf" %>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <article id="main-article" class="row">
         <div class="col-md-6 col-md-offset-3" id="cuadre-central">
             <p class="benvingut">Les meves dades</p>
             <form id="client-form" method="post" action="<%=request.getContextPath() %>/modificar">
-                <input name="type" type="hidden" value="nou-client"/>
+                <input name="type" type="hidden" value="client"/>
                 <table>
                     <tr >
                         <td colspan="3"> 
                             <p class="dades">Dades d'Usuari</p>
                         </td>
                     </tr>
+                    <% 
+                        String codeClass = "hidden";
+                        if(request.getParameter("code") != null){
+                            codeClass = "visible";
+                        }
+                    %>
+                    <tr class="<%=codeClass %>">
+                        <c:if test="${param.code == 'ok'}" var="code" scope="request">
+                            <td colspan="3" class="code-ok">La modificació se ha realitzat correctament</td>
+                        </c:if>
+                        <c:if test="${param.code == '1'}" var="code" scope="request">
+                            <td colspan="3" class="code-error">Error en la modificació de les dades. Nom d'usuari no existent</td>
+                        </c:if>
+                        <c:if test="${param.code == '2'}" var="code" scope="request">
+                            <td colspan="3" class="code-error">Error en la modificació de les dades.</td>
+                        </c:if>
+                    </tr>
                     <tr>
                         <td>
-                            <input name="usuari" type="text" class="validate[required]" placeholder="Usuari" value="<%=user.getNomUsuari() %>" readonly="readonly">
+                            <input name="usuari" type="text" class="validate[required,minSize[8]]" placeholder="Usuari" value="<%=user.getNomUsuari() %>" readonly="readonly">
                         </td>
                         <td>
                             <input name="modificar" type="checkbox" id="modificar-contrasenya" /><span>Modificar contrasenya</span>

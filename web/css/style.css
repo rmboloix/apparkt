@@ -273,7 +273,8 @@ form.login-form input[type="password"],
   color: white;
   font-weight: 400;
 }
-#form-buscador #form-buscar-reserva input:not([type="submit"]) {
+#form-buscador #form-buscar-reserva input:not([type="submit"]),
+#form-buscador #form-buscar-reserva select {
   width: 55%;
   float: right;
   height: 26px;
