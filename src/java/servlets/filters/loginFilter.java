@@ -38,9 +38,9 @@ public class loginFilter implements Filter {
     
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
-        if (debug) {
-            log("loginFilter:DoBeforeProcessing");
-        }
+//        if (debug) {
+//            log("loginFilter:DoBeforeProcessing");
+//        }
         HttpServletRequest req = (HttpServletRequest)request;
         HttpServletResponse res = (HttpServletResponse)response;
         HttpSession session = req.getSession(true);
@@ -83,9 +83,9 @@ public class loginFilter implements Filter {
     
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
-        if (debug) {
-            log("loginFilter:DoAfterProcessing");
-        }
+//        if (debug) {
+//            log("loginFilter:DoAfterProcessing");
+//        }
 //        HttpServletRequest req = (HttpServletRequest)request;
 //        System.out.println("AFTER "+req.getRemoteUser());
 	// Write code here to process the request and/or response after
@@ -120,9 +120,9 @@ public class loginFilter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
         
-        if (debug) {
-            log("loginFilter:doFilter()");
-        }
+//        if (debug) {
+//            log("loginFilter:doFilter()");
+//        }
         
         doBeforeProcessing(request, response);
         
@@ -180,9 +180,9 @@ public class loginFilter implements Filter {
     public void init(FilterConfig filterConfig) {        
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
-            if (debug) {                
-                log("loginFilter:Initializing filter");
-            }
+//            if (debug) {                
+//                log("loginFilter:Initializing filter");
+//            }
         }
     }
 

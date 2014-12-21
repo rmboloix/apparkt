@@ -107,7 +107,7 @@
                     'idAparcament':id_aparcament,
                     'acc':'reservar'
             }, function(data) {
-                console.log(data);
+                window.location = "/Apparkt/client/index.jsp?reserva="+data;
             });
             
         });

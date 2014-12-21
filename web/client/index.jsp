@@ -36,6 +36,9 @@
     <article id="main-article" class="row reservas">
         <div class="col-md-6 col-md-offset-3" id="cuadre-central">
             <p class="benvingut">Benvingut <%=usuari.getNom() %></p>
+            <c:if test="${param.reserva == 'ok'}" var="code" scope="request">
+                <p colspan="3" class="code-ok">La reserva realitzada correctament</p>
+            </c:if>
             <p>Reserves actives</p>
             <table>
                 <thead>
@@ -95,20 +98,20 @@
                         if(preu != null){
                             sPreu = String.valueOf(preu);
                         }
+                        
                 %>
                 <% if(r.isAnulada()){ %>
                     <tr class="anulada">
                 <% }else{ %>    
                     <tr>
-                <%}%>
-                        
-                            <td><%=r.getMatricula() %></td>
-                            <td><%=r.getPlaca().getAparcament().getNom() %></td>
-                            <td><%=data %></td>
-                            <td><%=sHoraInici %></td>
-                            <td><%=sHoraFi %></td>
-                            <td><%=sPreu %></td>
-                        </tr>
+                <% } %>
+                        <td><%=r.getMatricula() %></td>
+                        <td><%=r.getPlaca().getAparcament().getNom() %></td>
+                        <td><%=data %></td>
+                        <td><%=sHoraInici %></td>
+                        <td><%=sHoraFi %></td>
+                        <td><%=sPreu %></td>
+                    </tr>
                 <%
                     }
                 %>
@@ -129,6 +132,5 @@
                 window.location = $(this).attr("href");
             }
         });
-        
     </script>
 </html>
