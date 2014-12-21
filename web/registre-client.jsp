@@ -93,7 +93,7 @@
             <div class="anunci">
                 <p><img alt="client" src="img/client.png"/>Fes-te client i gaudeix ara de tots els avantatges que Apparkt pot oferir-te:</p>
                 <ul>
-                    <li>Reserva la plaça quan vulguis y com vulguis</li>
+                    <li>Reserva la plaça quan vulguis i com vulguis</li>
                     <li>Modificar la teva reserva comodament</li>
                     <li>Programar la teva reserva</li>
                     <li>Pagament fàcil i cómode</li>

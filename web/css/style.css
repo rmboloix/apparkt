@@ -368,7 +368,7 @@ form#administrador-form input[type="submit"]:hover {
 footer {
   background: rgba(0, 0, 0, 0.7);
   color: white;
-  position: absolute;
+  position: fixed;
   width: 100%;
   bottom: 0;
 }

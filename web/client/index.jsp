@@ -37,7 +37,7 @@
         <div class="col-md-6 col-md-offset-3" id="cuadre-central">
             <p class="benvingut">Benvingut <%=usuari.getNom() %></p>
             <c:if test="${param.reserva == 'ok'}" var="code" scope="request">
-                <p colspan="3" class="code-ok">La reserva realitzada correctament</p>
+                <p colspan="3" class="code-ok">Reserva realitzada correctament</p>
             </c:if>
             <p>Reserves actives</p>
             <table>

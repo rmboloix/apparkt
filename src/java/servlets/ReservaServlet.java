@@ -52,10 +52,10 @@ public class ReservaServlet extends HttpServlet {
             String fHoraEntrada = request.getParameter("horaInici");
             String fHoraSortida = request.getParameter("horaFi");
             //Data
-            String[] sData = fData.split("-");
-            int any = Integer.parseInt(sData[0]);
-            int mes = Integer.parseInt(sData[1]) - 1;
-            int dia = Integer.parseInt(sData[2]);
+            String[] sData = fData.split("/");
+            int any = Integer.parseInt(sData[2]);
+            int mes = Integer.parseInt(sData[0]) - 1;
+            int dia = Integer.parseInt(sData[1]);
             //Hora entrada
             String[] sHoraEntrada = fHoraEntrada.split(":");
             int horaEntrada = Integer.parseInt(sHoraEntrada[0]);

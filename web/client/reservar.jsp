@@ -21,12 +21,12 @@
                     <input type="text" name="carrer" id="form-carrer"/>
                     <label for="form-codi-postal">Codi Postal</label>
                     <input type="text" name="codi-postal" id="form-codi-postal"/>
-                    <label for="form-carrer">Data</label>
-                    <input type="date" name="data" id="form-data"/>
-                    <label for="form-hora-entrada">Hora entrada</label>
-                    <input type="time" name="hora-entrada" id="form-hora-entrada"/>
-                    <label for="form-hora-sortida">Hora sortida</label>
-                    <input type="time" name="hora-sortida" id="form-hora-sortida"/>
+                    <label for="form-data">Data*</label>
+                    <input type="text" class="validate[required]" name="data" id="form-data"/>
+                    <label for="form-hora-entrada">Hora entrada*</label>
+                    <input type="time" class="validate[required]" name="hora-entrada" id="form-hora-entrada"/>
+                    <label for="form-hora-sortida">Hora sortida*</label>
+                    <input type="time" class="validate[required]" name="hora-sortida" id="form-hora-sortida"/>
                     <input id="submit-buscar-reserva" type="submit" value="Buscar Aparcaments"/>
                     <div class="clearer"></div>
                 </form>
@@ -50,51 +50,63 @@
     </article>
     <%@include file="../WEB-INF/jspf/footer.jspf" %>
     
+    
     <script type="text/javascript">
+        $( "#form-data" ).datepicker({ minDate: 0, maxDate: "+1M +10D" });
         var map;
         var aparcamentSeleccionat;
         var markerSelected;
         var markers = [];
         var circle;
         var barcelona = new google.maps.LatLng(41.3842113,2.1648133,14);
-        $('#submit-buscar-reserva').on('click', function(event) {
-            event.preventDefault();
-            $.post('/Apparkt/ReservaServlet', {
-                    'horaInici': $('input[name="hora-entrada"]').val(), 
-                    'horaFi':$('input[name="hora-sortida"]').val(),
-                    'data':$('input[name="data"]').val(),
-                    'acc':'buscar'
-            }, function(data) {
-                limpiarMapa();
-                $('#cuadre-mapa').slideDown();
-                console.log(data);
-                aparcaments = JSON.parse(data);
-                insereixAparcaments();
-                $('#parquings-trobats span').html(aparcaments.length);
-                $('#dia-parquing').text($('input[name="data"]').val());
-                $('#hora-entrada-parquing').text($('input[name="hora-entrada"]').val());
-                $('#hora-salida-parquing').text($('input[name="hora-sortida"]').val());
-                google.maps.event.trigger(map, "resize");
-                if($('input[name="carrer"]').val() !== ''){
-                    movingToStreet($('input[name="carrer"]').val(),$('input[name="codi-postal"]').val());
-                }else if(navigator.geolocation){
-                     navigator.geolocation.getCurrentPosition(function (position){
-                        var lat = position.coords.latitude;
-                        var lng = position.coords.longitude;
-                        var devCenter = new google.maps.LatLng(lat,lng);
-                        map.setCenter(devCenter);
-                        map.setZoom(16);
-                        //insereixAparcaments();
+        $('#form-buscar-reserva').submit( function() {
+            //event.preventDefault();
+            if($("form-buscar-reserva").validationEngine('validate')) {
+                var horaEntrada = $('#form-hora-entrada').val();
+                var horaSortida = $('#form-hora-sortida').val();
+                var sData = $('#form-data').val();
+                if((horaEntrada < horaSortida) && sData !== ''){
+                    $.post('/Apparkt/ReservaServlet', {
+                        'horaInici': $('input[name="hora-entrada"]').val(), 
+                        'horaFi':$('input[name="hora-sortida"]').val(),
+                        'data':$('input[name="data"]').val(),
+                        'acc':'buscar'
+                    }, function(data) {
+                        $('#form-buscar-reserva').validationEngine('hide');
+                        limpiarMapa();
+                        $('#cuadre-mapa').slideDown();
+                        console.log(data);
+                        aparcaments = JSON.parse(data);
+                        insereixAparcaments();
+                        $('#parquings-trobats span').html(aparcaments.length);
+                        $('#dia-parquing').text($('input[name="data"]').val());
+                        $('#hora-entrada-parquing').text($('input[name="hora-entrada"]').val());
+                        $('#hora-salida-parquing').text($('input[name="hora-sortida"]').val());
+                        google.maps.event.trigger(map, "resize");
+                        if($('input[name="carrer"]').val() !== ''){
+                            movingToStreet($('input[name="carrer"]').val(),$('input[name="codi-postal"]').val());
+                        }else if(navigator.geolocation){
+                             navigator.geolocation.getCurrentPosition(function (position){
+                                var lat = position.coords.latitude;
+                                var lng = position.coords.longitude;
+                                var devCenter = new google.maps.LatLng(lat,lng);
+                                map.setCenter(devCenter);
+                                map.setZoom(16);
+                                //insereixAparcaments();
+                            });
+                        }else{
+                            map.setCenter(barcelona);
+                            map.setZoom(16);
+                        }
                     });
-                    /*
-                    google.maps.event.addListener(map, 'click',function(e){
-                        console.log(e.latLng.toString());
-                    });*/
                 }else{
-                    map.setCenter(barcelona);
-                    map.setZoom(16);
+                    //Hores incorrectes.
+                    $('#form-buscar-reserva').validationEngine('showPrompt', 'Valors incorrectes. Per favor, revisi els camps.', 'load');
                 }
-            });
+            } else {
+                // The form didn't validate
+            }
+            return false;
         });
         $('#btn-reserva').on('click', function(event) {
             var id_aparcament = aparcamentSeleccionat.id;
