@@ -44,7 +44,7 @@ public class PersistenciaUsuarisTest {
         usuari = new Usuari();
         usuari.setDni("46942299N");
         usuari.setNom("Miquel Angel");
-        usuari.setCognom1("Vélez");
+        usuari.setCognom1("Velez");
         usuari.setCognom2("Serrano");
         usuari.setNomUsuari("iocmvelez");
         usuari.setPassword("1718c24b10aeb8099e3fc44960ab6949ab76a267352459f203ea1036bec382c2");
@@ -60,7 +60,7 @@ public class PersistenciaUsuarisTest {
         Contacte c = new Contacte();
         c.setCodiPostal("08291");
         c.setDireccio("C/Afores, 27, 3r");
-        c.setTelefon(626125872);
+        c.setTelefon(935921985);
         c.seteMail("mvelezserrano@outlook.es");
         c.setPoblacio(pobl);
 
@@ -107,7 +107,7 @@ public class PersistenciaUsuarisTest {
         assertEquals(resultat,usuari);
     }
     
-    //@Ignore
+    @Ignore
     @Test
     public void testInserirPersona() throws UtilitatPersistenciaException {
         GestorPersistencia db = new GestorPersistenciaJPA("UnitatDePersistenciaAmbJpa");
@@ -119,6 +119,7 @@ public class PersistenciaUsuarisTest {
         assertNotNull(pers.getDni());
     }
     
+    @Ignore
     @Test
     public void testEliminarPersona() throws UtilitatPersistenciaException {
         GestorPersistencia db = new GestorPersistenciaJPA("UnitatDePersistenciaAmbJpa");
@@ -131,6 +132,7 @@ public class PersistenciaUsuarisTest {
         assertNull(perso);
     }
     
+    @Ignore
     @Test
     public void testModificarPersona() throws UtilitatPersistenciaException {
         GestorPersistencia db = new GestorPersistenciaJPA("UnitatDePersistenciaAmbJpa");

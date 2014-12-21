@@ -47,7 +47,4 @@ public class Admin extends Persona {
     public void administraAparcament (Aparcament aparcament){
         
     }
-    
-    
-
 }

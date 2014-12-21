@@ -469,4 +469,22 @@ public class GestorPersistenciaJPA implements GestorPersistencia{
         
         return numPlacesLliures;
     }
+
+    @Override
+    public void actualitzaReserves() throws UtilitatPersistenciaException {
+        Query qry;
+        java.util.Date date= new java.util.Date();
+        Timestamp ara = new Timestamp(date.getTime());
+
+        qry = em.createQuery("Select r from Reserva r where r.hora_fi<= :ara");
+        qry.setParameter("ara", ara);
+        
+        List <Reserva> reservesPassades=(List<Reserva>) qry.getResultList(); 
+        
+        for (Reserva r:reservesPassades) {
+            r.setPassada(Boolean.TRUE);
+            modificar(r);
+        }
+        
+    }
 }
